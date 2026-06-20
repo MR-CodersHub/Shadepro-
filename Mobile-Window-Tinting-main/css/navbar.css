@@ -566,10 +566,11 @@ html[dir="rtl"] .icon-rtl {
   color: var(--white);
   text-transform: uppercase;
   letter-spacing: 1px;
-  padding: 10px 0;
+  padding: 14px 0;
   border-bottom: 1px solid var(--border-color);
   transition: all 0.3s ease;
   display: block;
+  flex-shrink: 0;
 }
 .mobile-nav-link:hover,
 .mobile-nav-link.active {
@@ -580,21 +581,37 @@ html[dir="rtl"] .icon-rtl {
 .mobile-nav-cta {
   display: block;
   text-align: center;
-  margin-top: 24px;
-  padding: 12px 28px;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  padding: 14px 28px;
   background: linear-gradient(135deg, var(--orange), var(--orange-light));
   color: #ffffff !important;
   border-radius: 50px;
   font-weight: 700;
   text-transform: uppercase;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   letter-spacing: 1px;
   box-shadow: 0 4px 15px rgba(255,107,0,0.3);
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 .mobile-nav-cta:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(255,107,0,0.45);
+}
+/* Scrollbar styling for mobile nav links area */
+.mobile-nav-links::-webkit-scrollbar {
+  width: 3px;
+}
+.mobile-nav-links::-webkit-scrollbar-track {
+  background: transparent;
+}
+.mobile-nav-links::-webkit-scrollbar-thumb {
+  background: rgba(255,107,0,0.3);
+  border-radius: 2px;
+}
+.mobile-nav-links::-webkit-scrollbar-thumb:hover {
+  background: var(--orange);
 }
 
 /* ── RTL Modes ── */
