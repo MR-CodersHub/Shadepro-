@@ -9,6 +9,10 @@
   z-index: 1000;
   transition: all var(--transition);
   padding: 0 24px;
+  /* Always show a background so all controls are visible above the hero */
+  background: linear-gradient(180deg, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.55) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 .navbar::after {
   content: '';
@@ -22,13 +26,24 @@
 .navbar.scrolled {
   background: var(--nav-bg);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 4px 30px rgba(0,0,0,0.3);
 }
 .navbar.scrolled::after { opacity: 1; }
 
+.light-theme .navbar {
+  background: linear-gradient(180deg, rgba(252,252,252,0.88) 0%, rgba(252,252,252,0.65) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+}
 .light-theme .navbar.scrolled {
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
+
+
 .light-theme .nav-link {
   color: #444444;
 }
@@ -146,18 +161,19 @@
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  background: rgba(255,107,0,0.12);
-  border: 1.5px solid rgba(255,107,0,0.4);
+  background: rgba(255,107,0,0.18);
+  border: 1.5px solid rgba(255,107,0,0.55);
   cursor: pointer;
   flex-shrink: 0;
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(255,107,0,0.2);
 }
 #theme-toggle:hover {
-  background: rgba(255,107,0,0.2);
+  background: rgba(255,107,0,0.28);
   border-color: var(--orange);
-  box-shadow: 0 0 16px rgba(255,107,0,0.45), 0 0 6px rgba(255,107,0,0.2) inset;
+  box-shadow: 0 0 16px rgba(255,107,0,0.55), 0 0 6px rgba(255,107,0,0.25) inset;
   transform: translateY(-2px);
 }
 #theme-toggle:active {
@@ -180,13 +196,13 @@
   opacity: 1;
   transform: rotate(0deg) scale(1);
 }
-.icon-moon svg { fill: #ffffff; filter: drop-shadow(0 0 4px rgba(255,107,0,0.6)); }
+.icon-moon svg { fill: #ffffff; filter: drop-shadow(0 0 5px rgba(255,107,0,0.8)) drop-shadow(0 0 2px rgba(255,255,255,0.5)); }
 
 .icon-sun {
   opacity: 0;
   transform: rotate(90deg) scale(0.4);
 }
-.icon-sun svg { fill: var(--orange); filter: drop-shadow(0 0 5px rgba(255,107,0,0.7)); }
+.icon-sun svg { fill: var(--orange); filter: drop-shadow(0 0 6px rgba(255,107,0,0.9)); }
 
 .light-theme .icon-moon {
   opacity: 0;
@@ -198,17 +214,18 @@
 }
 
 .light-theme #theme-toggle {
-  background: rgba(255,107,0,0.08);
-  border-color: rgba(255,107,0,0.35);
+  background: rgba(255,107,0,0.12);
+  border-color: rgba(255,107,0,0.45);
+  box-shadow: 0 0 8px rgba(255,107,0,0.15);
 }
 .light-theme #theme-toggle:hover {
-  background: rgba(255,107,0,0.18);
+  background: rgba(255,107,0,0.22);
   border-color: var(--orange);
-  box-shadow: 0 0 14px rgba(255,107,0,0.3), 0 2px 8px rgba(255,107,0,0.15) inset;
+  box-shadow: 0 0 14px rgba(255,107,0,0.35), 0 2px 8px rgba(255,107,0,0.18) inset;
 }
 .light-theme .icon-sun svg {
   fill: var(--orange);
-  filter: drop-shadow(0 0 5px rgba(255,107,0,0.8));
+  filter: drop-shadow(0 0 6px rgba(255,107,0,0.9));
 }
 
 /* ── Book Now CTA ── */
@@ -385,31 +402,33 @@
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  background: rgba(255,107,0,0.12);
-  border: 1.5px solid rgba(255,107,0,0.4);
+  background: rgba(255,107,0,0.18);
+  border: 1.5px solid rgba(255,107,0,0.55);
   cursor: pointer;
   flex-shrink: 0;
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(255,107,0,0.2);
 }
 #rtl-toggle:hover {
-  background: rgba(255,107,0,0.2);
+  background: rgba(255,107,0,0.28);
   border-color: var(--orange);
-  box-shadow: 0 0 16px rgba(255,107,0,0.45), 0 0 6px rgba(255,107,0,0.2) inset;
+  box-shadow: 0 0 16px rgba(255,107,0,0.55), 0 0 6px rgba(255,107,0,0.25) inset;
   transform: translateY(-2px);
 }
 #rtl-toggle:active {
   transform: scale(0.92);
 }
 .light-theme #rtl-toggle {
-  background: rgba(255,107,0,0.08);
-  border-color: rgba(255,107,0,0.35);
+  background: rgba(255,107,0,0.12);
+  border-color: rgba(255,107,0,0.45);
+  box-shadow: 0 0 8px rgba(255,107,0,0.15);
 }
 .light-theme #rtl-toggle:hover {
-  background: rgba(255,107,0,0.18);
+  background: rgba(255,107,0,0.22);
   border-color: var(--orange);
-  box-shadow: 0 0 14px rgba(255,107,0,0.3), 0 2px 8px rgba(255,107,0,0.15) inset;
+  box-shadow: 0 0 14px rgba(255,107,0,0.35), 0 2px 8px rgba(255,107,0,0.18) inset;
 }
 
 /* ── RTL Icon Toggle Animation ── */
@@ -423,8 +442,13 @@
 }
 .rtl-icon svg {
   width: 20px; height: 20px;
-  stroke: currentColor;
+  stroke: #ffffff;
   fill: none;
+  filter: drop-shadow(0 0 4px rgba(255,107,0,0.7)) drop-shadow(0 0 2px rgba(255,255,255,0.4));
+}
+.light-theme .rtl-icon svg {
+  stroke: var(--orange);
+  filter: drop-shadow(0 0 5px rgba(255,107,0,0.8));
 }
 .icon-ltr {
   opacity: 0;
@@ -451,11 +475,12 @@ html[dir="rtl"] .icon-rtl {
   width: 42px; height: 42px;
   padding: 13px 11px;
   border-radius: 10px;
-  background: rgba(255,107,0,0.12);
-  border: 1.5px solid rgba(255,107,0,0.4);
+  background: rgba(255,107,0,0.18);
+  border: 1.5px solid rgba(255,107,0,0.55);
   cursor: pointer;
   z-index: 1600; /* stays above drawer overlay */
   transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(255,107,0,0.2);
   position: relative;
 }
 #hamburger-toggle span {
