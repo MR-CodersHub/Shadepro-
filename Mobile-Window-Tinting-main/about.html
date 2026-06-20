@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — ShadePro Premium Window Tinting & PPF</title>
+  <meta name="description" content="Learn about ShadePro's team, our story, certified installers, and commitment to luxury vehicle window tinting and PPF." />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <style>
+    /* ── Our Story Grid & Stats ── */
+    .about-split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .about-stats-flex {
+      display: flex;
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    /* ── Team Styling ── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 40px;
+    }
+    .team-card {
+      background: var(--black-3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all var(--transition);
+      text-align: center;
+    }
+    .team-card:hover {
+      border-color: var(--orange);
+      box-shadow: var(--orange-glow);
+      transform: translateY(-4px);
+    }
+    .team-avatar-wrap {
+      width: 100%;
+      height: 280px;
+      overflow: hidden;
+      background: #222;
+    }
+    .team-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition);
+    }
+    .team-card:hover .team-img {
+      transform: scale(1.05);
+    }
+    .team-info {
+      padding: 24px;
+    }
+    .team-name {
+      font-family: var(--font-head);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+    .team-role {
+      font-size: 0.8rem;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+
+    /* ── Values Grid ── */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .value-card {
+      background: var(--black-2);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: var(--radius);
+      padding: 30px 24px;
+      text-align: center;
+      transition: all var(--transition);
+      overflow: hidden;
+    }
+    .value-card:hover {
+      border-color: var(--orange);
+      background: rgba(255,107,0,0.02);
+    }
+    .value-icon {
+      width: calc(100% + 48px);
+      height: 160px;
+      border-radius: var(--radius) var(--radius) 0 0;
+      margin: -30px 0 18px -24px;
+      display: block;
+      background-size: cover;
+      background-position: center;
+      transition: all 0.4s ease;
+      border-bottom: 2px solid rgba(255, 107, 0, 0.2);
+    }
+    .value-card:hover .value-icon {
+      border-bottom-color: var(--orange);
+      box-shadow: 0 4px 20px rgba(255, 107, 0, 0.15);
+      transform: scale(1.02);
+    }
+    .value-title {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .value-desc {
+      font-size: 0.85rem;
+      color: var(--gray-400);
+      line-height: 1.65;
+    }
+
+    /* ── Certifications Bar ── */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+      align-items: center;
+      justify-items: center;
+      padding: 40px 0;
+    }
+    .cert-logo {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gray-600);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      transition: color var(--transition);
+    }
+    .cert-logo span {
+      color: var(--orange);
+      opacity: 0.5;
+    }
+    .cert-logo:hover {
+      color: var(--white);
+    }
+    .cert-logo:hover span {
+      opacity: 1;
+    }
+
+    @media (max-width: 991px) {
+      .about-split-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .team-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .values-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .certs-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+    }
+    @media (max-width: 640px) {
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 480px) {
+      .about-stats-flex {
+        gap: 16px;
+      }
+      .cert-logo {
+        font-size: 1.25rem;
+        letter-spacing: 2px;
+      }
+    }
+    @media (max-width: 360px) {
+      .about-split-grid {
+        gap: 30px;
+      }
+      .about-stats-flex {
+        flex-direction: column;
+        gap: 16px;
+      }
+      .value-card {
+        padding: 20px 16px;
+      }
+      .team-info {
+        padding: 16px;
+      }
+      .team-avatar-wrap {
+        height: 240px;
+      }
+      .certs-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .cert-logo {
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav Placeholder -->
+<div id="nav-placeholder"></div>
+
+<!-- ══ PAGE HERO ══ -->
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('images/about_team.png');"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <span style="color:var(--white);">About Us</span>
+    </div>
+    <h1 class="page-hero-title">About <span>ShadePro</span></h1>
+    <p class="page-hero-sub">Get to know the team behind the ultimate vehicle styling and protection brand.</p>
+  </div>
+</section>
+
+<!-- ══ OUR STORY ══ -->
+<section class="section-alt">
+  <div class="container">
+    <div class="about-split-grid">
+      <div class="reveal-left">
+        <div class="section-label">Our Story</div>
+        <h2 class="section-title">Driven by <span>Perfection</span></h2>
+        <p style="color:var(--gray-400);font-size:.95rem;line-height:1.8;margin-bottom:20px;">
+          Founded in 2013, ShadePro started with a simple vision: to deliver premium window tinting and detailing services without the inconvenience of visiting a physical shop. We built a custom mobile system that replicates a dust-free workshop environment inside a state-of-the-art van.
+        </p>
+        <p style="color:var(--gray-400);font-size:.95rem;line-height:1.8;margin-bottom:20px;">
+          Today, we protect and enhance hundreds of luxury vehicles, supercars, SUVs, and daily drivers every single month. We use only premium ceramic films and self-healing clear films, backed by our lifetime warranty.
+        </p>
+        <div class="about-stats-flex">
+          <div>
+            <div style="font-family:var(--font-head);font-size:2.2rem;font-weight:700;color:var(--orange);">12+</div>
+            <div style="font-size:.78rem;color:var(--gray-600);text-transform:uppercase;letter-spacing:1px;">Years in Business</div>
+          </div>
+          <div>
+            <div style="font-family:var(--font-head);font-size:2.2rem;font-weight:700;color:var(--orange);">5,000+</div>
+            <div style="font-size:.78rem;color:var(--gray-600);text-transform:uppercase;letter-spacing:1px;">Vehicles Protected</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <img src="images/detailing_shop.jpg" alt="ShadePro Team Workshop" style="border-radius:var(--radius-lg);box-shadow:var(--orange-glow);border:1px solid var(--orange);" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CORE VALUES ══ -->
+<section>
+  <div class="container">
+    <div class="section-header centered reveal">
+      <div class="section-label">Our Core Values</div>
+      <h2 class="section-title">What <span>Guides</span> Us</h2>
+      <p class="section-subtitle">We believe in building long-term relationships with clients through transparency, reliability, and superior workmanship.</p>
+    </div>
+
+    <div class="values-grid">
+      <div class="value-card reveal">
+        <span class="value-icon" style="background-image: url('images/orange_mclaren.jpg');"></span>
+        <h4 class="value-title">Quality First</h4>
+        <p class="value-desc">We never compromise on materials or methods. Only premium products leave our vans.</p>
+      </div>
+      <div class="value-card reveal" data-delay="100">
+        <span class="value-icon" style="background-image: url('images/silver_sports_car.jpg');"></span>
+        <h4 class="value-title">Honesty & Trust</h4>
+        <p class="value-desc">No hidden charges, upfront transparent pricing, and lifetime manufacturer warranties.</p>
+      </div>
+      <div class="value-card reveal" data-delay="200">
+        <span class="value-icon" style="background-image: url('images/miami_car.jpg');"></span>
+        <h4 class="value-title">Inconvenience-Free</h4>
+        <p class="value-desc">We respect your time. Our fully mobile team comes directly to you so you don't lose a minute.</p>
+      </div>
+      <div class="value-card reveal" data-delay="300">
+        <span class="value-icon" style="background-image: url('images/team_christian.jpg');"></span>
+        <h4 class="value-title">Certified Expertise</h4>
+        <p class="value-desc">Every installer undergoes rigorous certification to master advanced vehicle fitment curves.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MEET THE TEAM ══ -->
+<section class="section-alt">
+  <div class="container">
+    <div class="section-header centered reveal">
+      <div class="section-label">Expert Crew</div>
+      <h2 class="section-title">Meet Our <span>Certified</span> Installers</h2>
+      <p class="section-subtitle">Our factory-trained team handles your high-end sports cars and daily drivers with equal precision.</p>
+    </div>
+
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-avatar-wrap">
+          <img src="images/team_marcus.jpg" alt="Marcus Vance" class="team-img" loading="lazy" />
+        </div>
+        <div class="team-info">
+          <h4 class="team-name">Marcus Vance</h4>
+          <p class="team-role">Founder & Master Tint Technician</p>
+        </div>
+      </div>
+
+      <div class="team-card reveal" data-delay="150">
+        <div class="team-avatar-wrap">
+          <img src="images/team_sarah.jpg" alt="Sarah Jenkins" class="team-img" loading="lazy" />
+        </div>
+        <div class="team-info">
+          <h4 class="team-name">Sarah Jenkins</h4>
+          <p class="team-role">Lead Paint Protection Specialist</p>
+        </div>
+      </div>
+
+      <div class="team-card reveal" data-delay="300">
+        <div class="team-avatar-wrap">
+          <img src="images/team_christian.jpg" alt="Christian Brooks" class="team-img" loading="lazy" />
+        </div>
+        <div class="team-info">
+          <h4 class="team-name">Christian Brooks</h4>
+          <p class="team-role">Senior Vinyl Wrap Artisan</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CERTIFICATIONS ══ -->
+<section>
+  <div class="container">
+    <h3 style="font-family:var(--font-head);font-size:1.4rem;text-align:center;color:var(--gray-400);margin-bottom:30px;letter-spacing:1px;text-transform:uppercase;">Certified Industry Partners</h3>
+    <div class="certs-grid">
+      <div class="cert-logo">XPEL <span>PRO</span></div>
+      <div class="cert-logo">STEK <span>SHIELD</span></div>
+      <div class="cert-logo">3M <span>ELITE</span></div>
+      <div class="cert-logo">AVERY <span>MASTER</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer Placeholder -->
+<div id="footer-placeholder"></div>
+
+<script src="js/components.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

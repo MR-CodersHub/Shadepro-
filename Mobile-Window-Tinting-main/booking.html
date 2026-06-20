@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Online — ShadePro Premium Window Tint & PPF</title>
+  <meta name="description" content="Schedule your mobile window tinting, ceramic tint, Paint Protection Film (PPF), or detailing service appointment online." />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <style>
+    /* ── Multi-Step Booking Form ── */
+    .booking-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .booking-steps-nav {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      justify-content: center;
+      align-items: start;
+      gap: 80px;
+      margin-bottom: 40px;
+      position: relative;
+      padding: 0 40px;
+    }
+    .booking-steps-nav::before {
+      content: '';
+      position: absolute;
+      top: 20px; left: 80px; right: 80px;
+      height: 2px;
+      background: var(--charcoal);
+      z-index: 1;
+    }
+    .booking-steps-nav > * {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    .indicator-circle {
+      width: 42px; height: 42px;
+      margin: 0 auto 8px;
+      border-radius: 50%;
+      background: var(--black-3);
+      border: 2px solid var(--charcoal);
+      color: var(--gray-400);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: all var(--transition);
+      position: relative;
+    }
+    .indicator-circle.active {
+      background: var(--orange-dim);
+      border-color: var(--orange);
+      color: var(--orange);
+      box-shadow: 0 0 30px rgba(255,107,0,0.6), 0 0 60px rgba(255,107,0,0.25);
+    }
+    .indicator-circle.active::after {
+      content: '';
+      position: absolute;
+      inset: -18px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,107,0,0.25) 0%, transparent 70%);
+      z-index: -1;
+      pointer-events: none;
+    }
+    .indicator-circle.completed {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: var(--white);
+    }
+    .indicator-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--gray-600);
+      transition: color var(--transition);
+      grid-row: 2;
+    }
+    .indicator-circle.active + .indicator-label {
+      color: var(--white);
+    }
+
+    .booking-card {
+      background: var(--black-3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      position: relative;
+    }
+    .booking-step-panel {
+      display: none;
+    }
+    .booking-step-panel.active {
+      display: block;
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    .step-panel-title {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 24px;
+      border-left: 3px solid var(--orange);
+      padding-left: 14px;
+    }
+
+    /* Selection Grids */
+    .selection-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+    .select-card {
+      background: var(--black-2);
+      border: 1.5px solid rgba(255,255,255,0.05);
+      border-radius: var(--radius);
+      padding: 24px 18px;
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .select-card:hover {
+      border-color: rgba(255,107,0,0.3);
+    }
+    .select-card.selected {
+      border-color: var(--orange);
+      background: var(--orange-dim);
+      box-shadow: 0 0 15px rgba(255,107,0,0.15);
+    }
+    .select-card-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      margin: 0 auto 12px;
+      display: block;
+      background-size: cover;
+      background-position: center;
+      border: 2px solid rgba(255, 107, 0, 0.25);
+      transition: all var(--transition);
+    }
+    .select-card.selected .select-card-icon {
+      border-color: var(--orange);
+      box-shadow: 0 0 12px rgba(255,107,0,0.25);
+    }
+    .select-card-name {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    /* Buttons Panel */
+    .booking-btn-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 24px;
+    }
+
+    /* Success Panel */
+    .success-panel {
+      text-align: center;
+      padding: 30px 0;
+    }
+    .success-icon {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: rgba(34,197,94,0.15);
+      border: 2px solid #22c55e;
+      color: #22c55e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      margin: 0 auto 24px;
+      box-shadow: 0 0 25px rgba(34,197,94,0.25);
+    }
+
+    @media (max-width: 768px) {
+      .selection-grid {
+        grid-template-columns: 1fr;
+      }
+      .booking-card {
+        padding: 24px 20px;
+      }
+      /* Reset span-2 columns when grid collapses to single column */
+      [style*="grid-column: span 2"] {
+        grid-column: span 1 !important;
+      }
+    }
+    @media (max-width: 480px) {
+      .booking-card {
+        padding: 24px 16px;
+      }
+      .step-panel-title {
+        font-size: 1.3rem;
+        margin-bottom: 18px;
+        padding-left: 10px;
+      }
+      .step-panel-title[style] {
+        margin-top: 24px !important;
+      }
+      .booking-steps-nav {
+        gap: 40px;
+        padding: 0 20px;
+      }
+      .booking-steps-nav::before {
+        left: 40px;
+        right: 40px;
+        top: 18px;
+      }
+      .indicator-circle {
+        width: 36px;
+        height: 36px;
+        font-size: 0.95rem;
+      }
+      .indicator-label {
+        font-size: 0.65rem;
+        letter-spacing: 0.5px;
+      }
+      .booking-actions {
+        flex-direction: column-reverse !important;
+        gap: 10px !important;
+      }
+      .booking-actions .btn {
+        width: 100% !important;
+        justify-content: center;
+      }
+      .booking-btn-bar {
+        flex-direction: column-reverse;
+        gap: 10px;
+        padding-top: 18px;
+        margin-top: 28px;
+      }
+      .booking-btn-bar .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      /* On step 1 the hidden Back btn still takes space; hide it fully with display:none via JS */
+    }
+    @media (max-width: 360px) {
+      .booking-card {
+        padding: 20px 10px;
+      }
+      .booking-steps-nav {
+        gap: 20px;
+        padding: 0 10px;
+        margin-bottom: 24px;
+      }
+      .booking-steps-nav::before {
+        left: 24px;
+        right: 24px;
+      }
+      .indicator-label {
+        font-size: 0.6rem;
+        letter-spacing: 0;
+      }
+      .step-panel-title {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav Placeholder -->
+<div id="nav-placeholder"></div>
+
+<!-- ══ PAGE HERO ══ -->
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('images/silver_tinted_sedan.jpg');"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <span style="color:var(--white);">Booking</span>
+    </div>
+    <h1 class="page-hero-title">Book <span>Service</span></h1>
+    <p class="page-hero-sub">Schedule your paint protection and tinting appointment in three simple steps.</p>
+  </div>
+</section>
+
+<!-- ══ BOOKING CARD ══ -->
+<section class="section-alt">
+  <div class="container">
+    <div class="booking-wrapper">
+      <!-- Steps Indicators -->
+      <div class="booking-steps-nav">
+        <div class="indicator-circle active" id="indicator1">1</div>
+        <span class="indicator-label">Service</span>
+        <div class="indicator-circle" id="indicator2">2</div>
+        <span class="indicator-label">Vehicle</span>
+        <div class="indicator-circle" id="indicator3">3</div>
+        <span class="indicator-label">Schedule</span>
+      </div>
+
+      <!-- Booking Card -->
+      <div class="booking-card">
+        <form id="bookingForm" onsubmit="return false;">
+          <!-- STEP 1: SERVICE -->
+          <div class="booking-step-panel active" id="stepPanel1">
+            <h3 class="step-panel-title">Select Your Service</h3>
+            <div class="selection-grid">
+              <div class="select-card selected" onclick="selectService(this, 'Window Tinting')">
+                <span class="select-card-icon" style="background-image: url('images/silver_tinted_sedan.jpg');"></span>
+                <span class="select-card-name">Window Tinting</span>
+              </div>
+              <div class="select-card" onclick="selectService(this, 'Ceramic Tint')">
+                <span class="select-card-icon" style="background-image: url('images/tint_result.jpg');"></span>
+                <span class="select-card-name">Ceramic Tint</span>
+              </div>
+              <div class="select-card" onclick="selectService(this, 'PPF Clear Bra')">
+                <span class="select-card-icon" style="background-image: url('images/black_mercedes.jpg');"></span>
+                <span class="select-card-name">Paint Protection Film</span>
+              </div>
+              <div class="select-card" onclick="selectService(this, 'Vinyl Wrap')">
+                <span class="select-card-icon" style="background-image: url('images/vinyl_wrap_porsche.jpg');"></span>
+                <span class="select-card-name">Vinyl Wrap</span>
+              </div>
+              <div class="select-card" onclick="selectService(this, 'Ceramic Coating')">
+                <span class="select-card-icon" style="background-image: url('images/coating_detail.jpg');"></span>
+                <span class="select-card-name">Ceramic Coating</span>
+              </div>
+              <div class="select-card" onclick="selectService(this, 'Full Bundle')">
+                <span class="select-card-icon" style="background-image: url('images/hero_car_new.jpg');"></span>
+                <span class="select-card-name">Full Car Bundle</span>
+              </div>
+            </div>
+            <input type="hidden" name="selected_service" id="selectedServiceVal" value="Window Tinting" />
+          </div>
+
+          <!-- STEP 2: VEHICLE DETAILS -->
+          <div class="booking-step-panel" id="stepPanel2">
+            <h3 class="step-panel-title">Tell Us About Your Vehicle</h3>
+            <div class="grid grid-3" style="margin-bottom: 24px;">
+              <div class="form-group">
+                <label for="car-year">Year</label>
+                <select class="form-control" id="car-year" required>
+                  <option value="">— Select Year —</option>
+                  <option>2026</option>
+                  <option>2025</option>
+                  <option>2024</option>
+                  <option>2023</option>
+                  <option>2022</option>
+                  <option>2021</option>
+                  <option>Before 2020</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="car-make">Make</label>
+                <input type="text" class="form-control" id="car-make" placeholder="e.g. Tesla, BMW, Porsche" required />
+              </div>
+              <div class="form-group">
+                <label for="car-model">Model</label>
+                <input type="text" class="form-control" id="car-model" placeholder="e.g. Model Y, M3, 911" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="car-type">Vehicle Style Body Type</label>
+              <select class="form-control" id="car-type" required>
+                <option value="">— Select Style —</option>
+                <option>Coupe (2 Doors)</option>
+                <option>Sedan (4 Doors)</option>
+                <option>Crossover / Small SUV</option>
+                <option>Full-Size SUV</option>
+                <option>Pickup Truck</option>
+                <option>Van / Minivan</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- STEP 3: SCHEDULE & CONTACT -->
+          <div class="booking-step-panel" id="stepPanel3">
+            <h3 class="step-panel-title">Select Appointment Date & Time</h3>
+            <div class="grid grid-2" style="margin-bottom: 24px;">
+              <div class="form-group">
+                <label for="book-date">Preferred Date</label>
+                <input type="date" class="form-control" id="book-date" required />
+              </div>
+              <div class="form-group">
+                <label for="book-time">Preferred Time Slot</label>
+                <select class="form-control" id="book-time" required>
+                  <option value="">— Select Time Slot —</option>
+                  <option>Morning (8:00 AM - 12:00 PM)</option>
+                  <option>Afternoon (12:00 PM - 4:00 PM)</option>
+                  <option>Late Afternoon (4:00 PM - 7:00 PM)</option>
+                </select>
+              </div>
+            </div>
+
+            <h3 class="step-panel-title" style="margin-top:40px;">Contact & Location Details</h3>
+            <div class="grid grid-2">
+              <div class="form-group">
+                <label for="cust-name">Full Name</label>
+                <input type="text" class="form-control" id="cust-name" placeholder="John Smith" required />
+              </div>
+              <div class="form-group">
+                <label for="cust-phone">Phone Number</label>
+                <input type="tel" class="form-control" id="cust-phone" placeholder="+1 (555) 000-0000" required />
+              </div>
+              <div class="form-group" style="grid-column: span 2;">
+                <label for="cust-email">Email Address</label>
+                <input type="email" class="form-control" id="cust-email" placeholder="john.smith@example.com" required />
+              </div>
+              <div class="form-group" style="grid-column: span 2;">
+                <label for="cust-address">Mobile Service Address</label>
+                <input type="text" class="form-control" id="cust-address" placeholder="123 Ocean Drive, Miami FL" required />
+              </div>
+            </div>
+          </div>
+
+          <!-- SUCCESS PANEL -->
+          <div class="booking-step-panel" id="stepPanelSuccess">
+            <div class="success-panel">
+              <div class="success-icon">✓</div>
+              <h2 style="font-family:var(--font-head);font-size:2rem;color:var(--white);margin-bottom:12px;">Booking Requested!</h2>
+              <p style="color:var(--gray-400);max-width:500px;margin:0 auto 24px;line-height:1.75;">
+                Thank you for choosing ShadePro. Our team will review your request and call/text you within 30 minutes to confirm your slot and finalize pricing details.
+              </p>
+              <a href="index.html" class="btn btn-primary">Return to Home</a>
+            </div>
+          </div>
+
+          <!-- Navigation buttons -->
+          <div class="booking-btn-bar" id="btnBar">
+            <button class="btn btn-ghost" id="prevBtn" type="button" style="display:none;" onclick="navigatePanel(-1)">← Back</button>
+            <button class="btn btn-primary" id="nextBtn" type="button" onclick="navigatePanel(1)">Continue Step →</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer Placeholder -->
+<div id="footer-placeholder"></div>
+
+<script src="js/components.js"></script>
+<script src="js/main.js"></script>
+<script>
+  let currentPanel = 1;
+
+  function selectService(card, serviceName) {
+    document.querySelectorAll('.select-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    const input = document.getElementById('selectedServiceVal');
+    if (input) input.value = serviceName;
+  }
+
+  function navigatePanel(direction) {
+    if (direction === 1) {
+      // Form Validation before moving forward
+      if (currentPanel === 2) {
+        const year = document.getElementById('car-year').value;
+        const make = document.getElementById('car-make').value.trim();
+        const model = document.getElementById('car-model').value.trim();
+        const type = document.getElementById('car-type').value;
+        if (!year || !make || !model || !type) {
+          alert('Please fill out all vehicle specifications before proceeding.');
+          return;
+        }
+      }
+      if (currentPanel === 3) {
+        const date = document.getElementById('book-date').value;
+        const time = document.getElementById('book-time').value;
+        const name = document.getElementById('cust-name').value.trim();
+        const phone = document.getElementById('cust-phone').value.trim();
+        const email = document.getElementById('cust-email').value.trim();
+        const address = document.getElementById('cust-address').value.trim();
+        if (!date || !time || !name || !phone || !email || !address) {
+          alert('Please fill out your complete schedule and contact details.');
+          return;
+        }
+      }
+    }
+
+    currentPanel += direction;
+    updatePanels();
+  }
+
+  function updatePanels() {
+    // Hide all
+    document.querySelectorAll('.booking-step-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.indicator-circle').forEach(i => {
+      i.classList.remove('active');
+      i.classList.remove('completed');
+    });
+
+    // Handle Success State
+    if (currentPanel === 4) {
+      document.getElementById('stepPanelSuccess').classList.add('active');
+      document.getElementById('indicator1').classList.add('completed');
+      document.getElementById('indicator2').classList.add('completed');
+      document.getElementById('indicator3').classList.add('completed');
+      document.getElementById('btnBar').style.display = 'none';
+      return;
+    }
+
+    // Show current
+    document.getElementById(`stepPanel${currentPanel}`).classList.add('active');
+
+    // Indicators updates
+    for (let i = 1; i <= 3; i++) {
+      const ind = document.getElementById(`indicator${i}`);
+      if (i < currentPanel) {
+        ind.classList.add('completed');
+      } else if (i === currentPanel) {
+        ind.classList.add('active');
+      }
+    }
+
+    // Button states
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    prevBtn.style.display = currentPanel === 1 ? 'none' : 'inline-flex';
+
+    if (currentPanel === 3) {
+      nextBtn.textContent = 'Submit Booking Request';
+      nextBtn.style.background = '#22c55e';
+      nextBtn.style.boxShadow = '0 4px 20px rgba(34,197,94,0.3)';
+    } else {
+      nextBtn.textContent = 'Continue Step →';
+      nextBtn.style.background = '';
+      nextBtn.style.boxShadow = '';
+    }
+  }
+
+  // Set minimum date picker input to today
+  document.addEventListener('DOMContentLoaded', () => {
+    const dateInput = document.getElementById('book-date');
+    if (dateInput) {
+      const today = new Date().toISOString().split('T')[0];
+      dateInput.min = today;
+    }
+  });
+</script>
+</body>
+</html>

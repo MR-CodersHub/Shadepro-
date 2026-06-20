@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automotive Care Blog — ShadePro Premium Window Tint & PPF</title>
+  <meta name="description" content="Read expert tips on ceramic tint curing, Paint Protection Film (PPF) maintenance, vinyl wrapping, and premium car detailing." />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <style>
+    /* ── Featured Post ── */
+    .featured-post-card {
+      background: var(--black-3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      margin-bottom: 60px;
+      transition: all var(--transition);
+    }
+    .featured-post-card:hover {
+      border-color: var(--orange);
+      box-shadow: var(--orange-glow);
+    }
+    .featured-post-img-wrap {
+      height: 100%;
+      min-height: 380px;
+      overflow: hidden;
+    }
+    .featured-post-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .featured-post-card:hover .featured-post-img {
+      transform: scale(1.04);
+    }
+    .featured-post-content {
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .post-meta-wrap {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--gray-600);
+      margin-bottom: 14px;
+    }
+    .post-meta-tag {
+      color: var(--orange);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ── Blog Grid ── */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-bottom: 60px;
+    }
+
+
+    @media (max-width: 991px) {
+      .featured-post-card {
+        grid-template-columns: 1fr;
+      }
+      .featured-post-img-wrap {
+        height: 300px;
+      }
+      .featured-post-content {
+        padding: 30px 24px;
+      }
+      .blog-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 480px) {
+      .featured-post-img-wrap {
+        height: 200px;
+      }
+      .featured-post-content {
+        padding: 20px 16px;
+      }
+      .blog-content {
+        padding: 16px;
+      }
+      .blog-img-wrap {
+        height: 180px;
+      }
+    }
+    @media (max-width: 360px) {
+      .featured-post-img-wrap {
+        height: 170px;
+      }
+      .featured-post-content {
+        padding: 16px 12px;
+      }
+      .blog-content {
+        padding: 14px 12px;
+      }
+      .blog-img-wrap {
+        height: 150px;
+      }
+      .blog-title {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav Placeholder -->
+<div id="nav-placeholder"></div>
+
+<!-- ══ PAGE HERO ══ -->
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('images/black_bmw_m5.jpg');"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <span style="color:var(--white);">Blog</span>
+    </div>
+    <h1 class="page-hero-title">ShadePro <span>Blog</span></h1>
+    <p class="page-hero-sub">Read expert detailing advice, protective film guides, and high-end automotive transformations.</p>
+  </div>
+</section>
+
+<!-- ══ FEATURED POST ══ -->
+<section class="section-alt">
+  <div class="container">
+    <div class="featured-post-card reveal">
+      <a href="blog-details-4.html" class="featured-post-img-wrap" style="display: block;">
+        <img src="images/water_beading.jpg" alt="Hydrophobic water beading on ceramic coated paint" class="featured-post-img" loading="lazy" />
+      </a>
+      <div class="featured-post-content">
+        <div class="post-meta-wrap">
+          <span class="post-meta-tag">Paint Care</span>
+          <span>·</span>
+          <span>May 18, 2026</span>
+        </div>
+        <h2 style="font-family:var(--font-head);font-size:2rem;color:var(--white);margin-bottom:16px;line-height:1.2;">
+          <a href="blog-details-4.html" style="color: inherit; text-decoration: none;">How to Maintain Ceramic Coated Paint For Years</a>
+        </h2>
+        <p style="color:var(--gray-400);font-size:.9rem;line-height:1.75;margin-bottom:24px;">
+          Applying a premium ceramic coat is only the first step. To maintain that flawless, glossy mirror finish and keep the water repelling properties active, you need to follow these essential wash techniques.
+        </p>
+        <div>
+          <a href="blog-details-4.html" class="btn btn-primary">Read Article →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Blog Grid -->
+    <div class="blog-grid">
+      <!-- Card 1 -->
+      <div class="blog-card reveal">
+        <a href="blog-details-1.html" class="blog-img-wrap" style="display: block;">
+          <img src="images/tint_result.jpg" alt="Window Tint Installation" class="blog-img" loading="lazy" />
+        </a>
+        <div class="blog-content">
+          <div class="post-meta-wrap">
+            <span class="post-meta-tag">Tint Guides</span>
+            <span>·</span>
+            <span>May 12, 2026</span>
+          </div>
+          <h3 class="blog-title">
+            <a href="blog-details-1.html" style="color: inherit; text-decoration: none;">Carbon vs Ceramic Tint: Which is Better?</a>
+          </h3>
+          <p class="blog-excerpt">Uncover the scientific differences, heat rejection capabilities, cost factors, and durability comparison of Carbon versus Ceramic tint films.</p>
+          <a href="blog-details-1.html" class="read-more-link">Read More →</a>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="blog-card reveal" data-delay="100">
+        <a href="blog-details-2.html" class="blog-img-wrap" style="display: block;">
+          <img src="images/black_mercedes.jpg" alt="PPF Clear Bra Install" class="blog-img" loading="lazy" />
+        </a>
+        <div class="blog-content">
+          <div class="post-meta-wrap">
+            <span class="post-meta-tag">Clear PPF</span>
+            <span>·</span>
+            <span>April 28, 2026</span>
+          </div>
+          <h3 class="blog-title">
+            <a href="blog-details-2.html" style="color: inherit; text-decoration: none;">Is Paint Protection Film (PPF) Worth the Cost?</a>
+          </h3>
+          <p class="blog-excerpt">An in-depth review explaining how clear bra shields your vehicle's paint, preserves resale value, and cuts paint repair costs.</p>
+          <a href="blog-details-2.html" class="read-more-link">Read More →</a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="blog-card reveal" data-delay="200">
+        <a href="blog-details-3.html" class="blog-img-wrap" style="display: block;">
+          <img src="images/vinyl_wrap_porsche.jpg" alt="Vinyl Wrap Design" class="blog-img" loading="lazy" />
+        </a>
+        <div class="blog-content">
+          <div class="post-meta-wrap">
+            <span class="post-meta-tag">Vehicle Wraps</span>
+            <span>·</span>
+            <span>April 15, 2026</span>
+          </div>
+          <h3 class="blog-title">
+            <a href="blog-details-3.html" style="color: inherit; text-decoration: none;">Choosing the Perfect Wrap Colour & Finish</a>
+          </h3>
+          <p class="blog-excerpt">Explore the aesthetic options of matte, satin, metallic, and gloss wraps, and how to maintain them in hot Florida climates.</p>
+          <a href="blog-details-3.html" class="read-more-link">Read More →</a>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="blog-card reveal" data-delay="300">
+        <a href="blog-details-5.html" class="blog-img-wrap" style="display: block;">
+          <img src="images/nano_coating_car.jpg" alt="Ceramic Coating Maintenance" class="blog-img" loading="lazy" />
+        </a>
+        <div class="blog-content">
+          <div class="post-meta-wrap">
+            <span class="post-meta-tag">Ceramic Coatings</span>
+            <span>·</span>
+            <span>March 30, 2026</span>
+          </div>
+          <h3 class="blog-title">
+            <a href="blog-details-5.html" style="color: inherit; text-decoration: none;">The Ultimate Guide to Ceramic Coating Maintenance</a>
+          </h3>
+          <p class="blog-excerpt">Learn the proper wash techniques, recommended products, and maintenance schedules to keep your ceramic coating performing at its peak for years.</p>
+          <a href="blog-details-5.html" class="read-more-link">Read More →</a>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="blog-card reveal" data-delay="400">
+        <a href="blog-details-6.html" class="blog-img-wrap" style="display: block;">
+          <img src="images/orange_service_van.jpg" alt="Mobile Detailing Service" class="blog-img" loading="lazy" />
+        </a>
+        <div class="blog-content">
+          <div class="post-meta-wrap">
+            <span class="post-meta-tag">Mobile Service</span>
+            <span>·</span>
+            <span>March 10, 2026</span>
+          </div>
+          <h3 class="blog-title">
+            <a href="blog-details-6.html" style="color: inherit; text-decoration: none;">Why Mobile Detailing Beats Traditional Shops</a>
+          </h3>
+          <p class="blog-excerpt">Discover the convenience, quality, and peace of mind that comes with professional mobile paint protection and tinting services delivered to your door.</p>
+          <a href="blog-details-6.html" class="read-more-link">Read More →</a>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="blog-card reveal" data-delay="500">
+        <a href="blog-details-7.html" class="blog-img-wrap" style="display: block;">
+          <img src="images/orange_mclaren.jpg" alt="Exotic Car Protection" class="blog-img" loading="lazy" />
+        </a>
+        <div class="blog-content">
+          <div class="post-meta-wrap">
+            <span class="post-meta-tag">Exotic Vehicles</span>
+            <span>·</span>
+            <span>February 22, 2026</span>
+          </div>
+          <h3 class="blog-title">
+            <a href="blog-details-7.html" style="color: inherit; text-decoration: none;">Protecting Exotic & Luxury Vehicles From Day One</a>
+          </h3>
+          <p class="blog-excerpt">A comprehensive guide to safeguarding high-value automobiles with full-body PPF, ceramic coatings, and precision window tinting from the moment they leave the showroom.</p>
+          <a href="blog-details-7.html" class="read-more-link">Read More →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer Placeholder -->
+<div id="footer-placeholder"></div>
+
+<script src="js/components.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Reviews — ShadePro Premium Window Tint & PPF</title>
+  <meta name="description" content="Read reviews and testimonials from our luxury car detailing, ceramic window tinting, and PPF clients." />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <style>
+    /* ── Stats Highlight ── */
+    .testimonial-stats-wrap {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-bottom: 60px;
+    }
+    .t-stat-card {
+      background: var(--black-3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .t-stat-num {
+      font-family: var(--font-head);
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--orange);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .t-stat-label {
+      font-size: 0.82rem;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ── Testimonials Grid ── */
+    .t-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-bottom: 70px;
+    }
+    .t-card {
+      background: var(--black-3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all var(--transition);
+    }
+    .t-card:hover {
+      border-color: var(--orange);
+      box-shadow: var(--orange-glow);
+      transform: translateY(-4px);
+    }
+    .t-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .t-avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background-size: cover;
+      background-position: center;
+      border: 2px solid rgba(255,107,0,0.25);
+      box-shadow: 0 0 8px rgba(255,107,0,0.12);
+      transition: all 0.35s ease;
+    }
+    .t-card:hover .t-avatar {
+      border-color: var(--orange);
+      box-shadow: 0 0 14px rgba(255,107,0,0.25);
+    }
+    .t-name {
+      font-weight: 600;
+      color: var(--white);
+      font-size: 0.95rem;
+    }
+    .t-vehicle {
+      font-size: 0.75rem;
+      color: var(--gray-600);
+    }
+    .t-text {
+      font-size: 0.88rem;
+      color: var(--gray-400);
+      line-height: 1.75;
+      font-style: italic;
+      margin-top: 14px;
+    }
+
+    /* ── Review Submission Form ── */
+    .submit-review-card {
+      background: var(--black-3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      max-width: 700px;
+      margin: 0 auto;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+    .star-select-wrap {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .star-choice {
+      font-size: 1.8rem;
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: color var(--transition);
+    }
+    .star-choice.selected, .star-choice:hover {
+      color: var(--orange);
+    }
+
+    @media (max-width: 991px) {
+      .testimonial-stats-wrap {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .t-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      .t-grid {
+        grid-template-columns: 1fr;
+      }
+      .submit-review-card {
+        padding: 24px 20px;
+      }
+    }
+    @media (max-width: 480px) {
+      .t-card {
+        padding: 20px;
+      }
+      .t-stat-card {
+        padding: 20px 16px;
+      }
+      .t-stat-num {
+        font-size: 2.4rem;
+      }
+      .submit-review-card {
+        padding: 20px 16px;
+      }
+      .star-choice {
+        font-size: 1.5rem;
+      }
+    }
+    @media (max-width: 360px) {
+      .t-card {
+        padding: 16px 12px;
+      }
+      .t-stat-card {
+        padding: 16px 10px;
+      }
+      .t-stat-num {
+        font-size: 2.1rem;
+      }
+      .submit-review-card {
+        padding: 16px 12px;
+      }
+      .star-choice {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav Placeholder -->
+<div id="nav-placeholder"></div>
+
+<!-- ══ PAGE HERO ══ -->
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('images/mclaren_doors.jpg');"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <span style="color:var(--white);">Testimonials</span>
+    </div>
+    <h1 class="page-hero-title">Client <span>Reviews</span></h1>
+    <p class="page-hero-sub">Read honest experiences shared by our premium automotive detailing and tinting clients.</p>
+  </div>
+</section>
+
+<!-- ══ STATS SUMMARY ══ -->
+<section class="section-alt">
+  <div class="container">
+    <div class="testimonial-stats-wrap reveal">
+      <div class="t-stat-card">
+        <div class="t-stat-num">4.9★</div>
+        <div class="t-stat-label">Google Rating (500+ Reviews)</div>
+      </div>
+      <div class="t-stat-card">
+        <div class="t-stat-num">100%</div>
+        <div class="t-stat-label">Satisfaction Guarantee</div>
+      </div>
+      <div class="t-stat-card">
+        <div class="t-stat-num">98%</div>
+        <div class="t-stat-label">Repeat Client Rate</div>
+      </div>
+    </div>
+
+    <!-- Testimonials Grid -->
+    <div class="t-grid">
+      <div class="t-card reveal">
+        <div>
+          <div class="stars" style="margin-bottom:12px;">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="t-text">"Outstanding service! Marcus explained all tint parameters before starting. The finished tint on my BMW looks extremely premium."</p>
+        </div>
+        <div class="t-card-header" style="margin-top:20px;">
+          <div class="t-avatar" style="background-image: url('images/team_marcus.jpg');"></div>
+          <div>
+            <div class="t-name">Bradley R.</div>
+            <div class="t-vehicle">BMW 5-Series · Ceramic Tint 25%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="t-card reveal" data-delay="100">
+        <div>
+          <div class="stars" style="margin-bottom:12px;">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="t-text">"They wrapped my Tesla Model X in satin grey and protected the front bumper with clear PPF. Truly invisible defense and a custom show-quality look!"</p>
+        </div>
+        <div class="t-card-header" style="margin-top:20px;">
+          <div class="t-avatar" style="background-image: url('images/team_sarah.jpg');"></div>
+          <div>
+            <div class="t-name">Lisa A.</div>
+            <div class="t-vehicle">Tesla Model X · Satin Wrap + PPF</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="t-card reveal" data-delay="200">
+        <div>
+          <div class="stars" style="margin-bottom:12px;">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="t-text">"Had full front Paint Protection Film applied to my Corvette. The installation seams are perfect, no bubbles, absolutely clean work."</p>
+        </div>
+        <div class="t-card-header" style="margin-top:20px;">
+          <div class="t-avatar" style="background-image: url('images/team_christian.jpg');"></div>
+          <div>
+            <div class="t-name">Derek M.</div>
+            <div class="t-vehicle">Corvette C8 · Full Front PPF</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="t-card reveal" data-delay="300">
+        <div>
+          <div class="stars" style="margin-bottom:12px;">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="t-text">"The mobile service is a lifesaver. Marcus completed my window tinting in my office parking lot in less than two hours. Perfect quality."</p>
+        </div>
+        <div class="t-card-header" style="margin-top:20px;">
+          <div class="t-avatar" style="background-image: url('images/team_marcus.jpg');"></div>
+          <div>
+            <div class="t-name">Steve H.</div>
+            <div class="t-vehicle">Porsche Macan · Ceramic Tint</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="t-card reveal" data-delay="400">
+        <div>
+          <div class="stars" style="margin-bottom:12px;">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="t-text">"Applied diamond ceramic coat to my Mercedes. Rain and water slide off completely. Washing is incredibly easy now. Essential coating!"</p>
+        </div>
+        <div class="t-card-header" style="margin-top:20px;">
+          <div class="t-avatar" style="background-image: url('images/team_sarah.jpg');"></div>
+          <div>
+            <div class="t-name">Melanie K.</div>
+            <div class="t-vehicle">Mercedes GLE · Ceramic Coating</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="t-card reveal" data-delay="500">
+        <div>
+          <div class="stars" style="margin-bottom:12px;">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="t-text">"Honest pricing, professional work, and clear communication. The lifetime color warranty proves their confidence."</p>
+        </div>
+        <div class="t-card-header" style="margin-top:20px;">
+          <div class="t-avatar" style="background-image: url('images/team_christian.jpg');"></div>
+          <div>
+            <div class="t-name">Tyler N.</div>
+            <div class="t-vehicle">Ford F-150 · Carbon Window Tint</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SUBMIT A REVIEW FORM ══ -->
+<section>
+  <div class="container">
+    <div class="submit-review-card reveal">
+      <h3 style="font-family:var(--font-head);font-size:1.6rem;color:var(--white);margin-bottom:10px;text-align:center;">Leave Us a Review</h3>
+      <p style="color:var(--gray-400);font-size:.88rem;text-align:center;margin-bottom:28px;">Your feedback helps us maintain our premium auto detailing standards.</p>
+
+      <form id="reviewForm" onsubmit="return false;">
+        <div class="form-group">
+          <label>Your Rating</label>
+          <div class="star-select-wrap">
+            <span class="star-choice" data-star="1" onclick="rateStars(1)">★</span>
+            <span class="star-choice" data-star="2" onclick="rateStars(2)">★</span>
+            <span class="star-choice" data-star="3" onclick="rateStars(3)">★</span>
+            <span class="star-choice" data-star="4" onclick="rateStars(4)">★</span>
+            <span class="star-choice" data-star="5" onclick="rateStars(5)">★</span>
+          </div>
+          <input type="hidden" name="stars_rating" id="starsRatingVal" value="5" />
+        </div>
+
+        <div class="grid grid-2">
+          <div class="form-group">
+            <label for="rev-name">Full Name</label>
+            <input type="text" class="form-control" id="rev-name" placeholder="John Smith" required />
+          </div>
+          <div class="form-group">
+            <label for="rev-vehicle">Vehicle Make & Model</label>
+            <input type="text" class="form-control" id="rev-vehicle" placeholder="e.g. Tesla Model Y" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="rev-text">Your Review Details</label>
+          <textarea class="form-control" id="rev-text" rows="4" placeholder="How was your ShadePro experience?..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;" onclick="submitUserReview(this)">
+          Submit My Review →
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Footer Placeholder -->
+<div id="footer-placeholder"></div>
+
+<script src="js/components.js"></script>
+<script src="js/main.js"></script>
+<script>
+  let ratedValue = 5;
+
+  function rateStars(val) {
+    ratedValue = val;
+    document.getElementById('starsRatingVal').value = val;
+    const starChoices = document.querySelectorAll('.star-choice');
+    starChoices.forEach((star, idx) => {
+      if (idx < val) {
+        star.classList.add('selected');
+      } else {
+        star.classList.remove('selected');
+      }
+    });
+  }
+
+  function submitUserReview(btn) {
+    const name = document.getElementById('rev-name').value.trim();
+    const vehicle = document.getElementById('rev-vehicle').value.trim();
+    const text = document.getElementById('rev-text').value.trim();
+
+    if (!name || !vehicle || !text) {
+      alert('Please fill out all fields before submitting.');
+      return;
+    }
+
+    btn.textContent = '✓ Thank you! Review submitted.';
+    btn.style.background = '#22c55e';
+    btn.disabled = true;
+
+    // Prepend to list
+    setTimeout(() => {
+      // Clear inputs
+      document.getElementById('rev-name').value = '';
+      document.getElementById('rev-vehicle').value = '';
+      document.getElementById('rev-text').value = '';
+      btn.textContent = 'Submit My Review →';
+      btn.style.background = '';
+      btn.disabled = false;
+      rateStars(5);
+    }, 3000);
+  }
+
+  // Pre-initialize stars
+  document.addEventListener('DOMContentLoaded', () => {
+    rateStars(5);
+  });
+</script>
+</body>
+</html>

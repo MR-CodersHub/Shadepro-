@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShadePro — Elite Automotive Protection (Alternate Home)</title>
+  <meta name="description" content="Discover premium automotive protection with our interactive tint simulator, certified PPF shields, and ceramic coatings." />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <style>
+    /* ── Alternate Hero ── */
+    .hero-alt {
+      min-height: 90vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding-top: calc(var(--nav-height) + 40px);
+    }
+
+    .hero-alt-bg {
+      position: absolute;
+      inset: 0;
+      background: url('images/premium_hero_bg.png') center center / cover no-repeat;
+      filter: brightness(0.85);
+      transform: scale(1.03);
+      transition: filter 0.5s ease;
+    }
+    .hero-alt-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, rgba(10,10,10,0.05) 0%, rgba(10,10,10,0.15) 100%);
+      transition: background 0.5s ease;
+    }
+
+    .hero-alt-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 0 20px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 107, 0, 0.12);
+      border: 1px solid rgba(255, 107, 0, 0.3);
+      border-radius: 50px;
+      padding: 6px 18px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 24px;
+    }
+    .hero-eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--orange);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(255, 107, 0, 0.8);
+    }
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 6vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 22px;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.95), 0 4px 40px rgba(0, 0, 0, 0.85);
+    }
+    .hero-title .line-orange {
+      display: block;
+      color: var(--orange);
+      text-shadow: 0 0 40px rgba(255, 107, 0, 0.4);
+    }
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--gray-400);
+      line-height: 1.85;
+      max-width: 640px;
+      margin-bottom: 36px;
+      text-shadow: 0 1px 10px rgba(0, 0, 0, 0.95), 0 2px 20px rgba(0, 0, 0, 0.8);
+    }
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    /* ── Tint Shade Visualizer ── */
+    .visualizer-section {
+      background: var(--black-2);
+      padding: 90px 0;
+    }
+    .visualizer-card {
+      background: var(--black-3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    }
+    .vis-graphic-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--charcoal);
+    }
+    .vis-car-bg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.9);
+    }
+    .vis-glass-overlay {
+      position: absolute;
+      top: 36%;
+      left: 31%;
+      width: 44%;
+      height: 25%;
+      background: rgba(10, 10, 10, 0); /* Opacity controlled by JS */
+      border-radius: 4px;
+      pointer-events: none;
+      transition: background-color 0.4s ease;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+    }
+    .vis-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .vis-btn-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .vis-btn {
+      padding: 14px 10px;
+      background: var(--black-2);
+      border: 1.5px solid rgba(255,255,255,0.05);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--gray-400);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .vis-btn:hover, .vis-btn.active {
+      color: var(--white);
+      border-color: var(--orange);
+      background: var(--orange-dim);
+      box-shadow: 0 0 15px rgba(255,107,0,0.2);
+    }
+
+    /* ── Showroom categories ── */
+    .showroom-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .showroom-card {
+      background: var(--black-3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+      transition: all var(--transition);
+      overflow: hidden;
+    }
+    .showroom-card:hover {
+      border-color: var(--orange);
+      box-shadow: var(--orange-glow);
+      transform: translateY(-5px);
+    }
+    .showroom-icon {
+      width: 100%;
+      height: 160px;
+      border-radius: var(--radius) var(--radius) 0 0;
+      margin: -24px 0 18px -24px;
+      display: block;
+      background-size: cover;
+      background-position: center;
+      transition: all 0.4s ease;
+      border-bottom: 2px solid rgba(255, 107, 0, 0.2);
+      width: calc(100% + 48px);
+    }
+    .showroom-card:hover .showroom-icon {
+      border-bottom-color: var(--orange);
+      box-shadow: 0 4px 20px rgba(255, 107, 0, 0.15);
+      transform: scale(1.02);
+    }
+    .showroom-title {
+      font-family: var(--font-head);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .showroom-desc {
+      font-size: 0.82rem;
+      color: var(--gray-400);
+      line-height: 1.6;
+    }
+
+    /* ── Premium Alternate Pricing Showcase ── */
+    .pricing-section {
+      background: linear-gradient(180deg, var(--black-2) 0%, var(--black) 100%);
+      padding: 100px 0;
+      position: relative;
+    }
+    
+    .pricing-header-wrap {
+      margin-bottom: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .pricing-controls-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto 50px auto;
+      padding: 30px;
+      background: rgba(20, 20, 20, 0.6);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    }
+    
+    .control-label {
+      font-family: var(--font-head);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--gray-400);
+      text-transform: uppercase;
+    }
+    
+    .tab-container {
+      display: flex;
+      background: var(--black-3);
+      padding: 6px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255,255,255,0.04);
+      gap: 4px;
+      width: 100%;
+      max-width: 650px;
+    }
+    
+    .tab-btn {
+      flex: 1;
+      padding: 12px 16px;
+      border: none;
+      background: transparent;
+      color: var(--gray-400);
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all var(--transition);
+    }
+    
+    .tab-btn.active, .tab-btn:hover {
+      background: rgba(255, 107, 0, 0.08);
+      color: var(--orange);
+      border: 1px solid rgba(255, 107, 0, 0.2);
+    }
+    
+    .tab-btn.active {
+      background: var(--orange);
+      color: var(--white) !important;
+      border: 1px solid var(--orange);
+      box-shadow: 0 0 15px rgba(255, 107, 0, 0.3);
+    }
+    
+    .vehicle-selector-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding-top: 20px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .selected-vehicle-display {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+    
+    .selected-vehicle-display span {
+      color: var(--orange);
+      font-weight: 700;
+    }
+    
+    .veh-btn-grid {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    
+    .veh-select-btn {
+      padding: 12px 20px;
+      background: var(--black-3);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--gray-400);
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .veh-select-btn.active, .veh-select-btn:hover {
+      color: var(--white);
+      border-color: var(--orange);
+      background: var(--orange-dim);
+      box-shadow: 0 0 15px rgba(255, 107, 0, 0.2);
+    }
+    
+    /* Pricing Cards Grid */
+    .pricing-grid-alt {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 80px;
+      transition: all 0.4s ease;
+    }
+    
+    .pricing-card-alt {
+      width: calc(33.333% - 20px);
+      min-width: 320px;
+      background: rgba(20, 20, 20, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1.5px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-lg);
+      padding: 44px 34px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: opacity 0.3s ease, transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    .pricing-card-alt:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 107, 0, 0.5);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.5), 0 0 25px rgba(255,107,0,0.15);
+    }
+    
+    .pricing-card-alt.featured {
+      border-color: var(--orange);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.6), 0 0 35px rgba(255,107,0,0.25);
+      background: linear-gradient(180deg, rgba(28, 28, 28, 0.8) 0%, rgba(20, 20, 20, 0.8) 100%);
+    }
+    
+    .pricing-card-alt.featured::before {
+      content: 'POPULAR CHOICE';
+      position: absolute;
+      top: 28px;
+      right: -28px;
+      width: 150px;
+      text-align: center;
+      background: var(--orange);
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 4px 0;
+      transform: rotate(45deg);
+      letter-spacing: 1.5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .pricing-card-alt.combo {
+      border-color: #ff9d00;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.6), 0 0 35px rgba(255, 157, 0, 0.18);
+      background: linear-gradient(180deg, rgba(32, 28, 24, 0.8) 0%, rgba(20, 20, 20, 0.8) 100%);
+    }
+    
+    .pricing-card-alt.combo::before {
+      content: 'ELITE BUNDLE';
+      position: absolute;
+      top: 28px;
+      right: -28px;
+      width: 150px;
+      text-align: center;
+      background: #ff9d00;
+      color: black;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 4px 0;
+      transform: rotate(45deg);
+      letter-spacing: 1.5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .card-category-badge {
+      align-self: flex-start;
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 30px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--gray-400);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+    
+    .pricing-card-alt.featured .card-category-badge {
+      border-color: rgba(255, 107, 0, 0.3);
+      color: var(--orange);
+      background: rgba(255, 107, 0, 0.05);
+    }
+    
+    .pricing-card-alt.combo .card-category-badge {
+      border-color: rgba(255, 157, 0, 0.3);
+      color: #ff9d00;
+      background: rgba(255, 157, 0, 0.05);
+    }
+    
+    .pricing-table-hdr {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    
+    .pricing-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-bottom: 24px;
+    }
+    
+    .pricing-price-currency {
+      font-family: var(--font-head);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--orange);
+    }
+    
+    .pricing-card-alt.combo .pricing-price-currency {
+      color: #ff9d00;
+    }
+    
+    .pricing-price-val {
+      font-family: var(--font-head);
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+    }
+    
+    .pricing-price-period {
+      font-size: 0.85rem;
+      color: var(--gray-600);
+      margin-left: 6px;
+    }
+    
+    .pricing-card-desc {
+      font-size: 0.88rem;
+      color: var(--gray-400);
+      line-height: 1.6;
+      margin-bottom: 30px;
+      min-height: 50px;
+    }
+    
+    .pricing-features-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 40px;
+      flex: 1;
+    }
+    
+    .pricing-feat-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
+      color: var(--gray-400);
+    }
+    
+    .pricing-feat-item.disabled {
+      color: var(--gray-600);
+      text-decoration: line-through;
+    }
+    
+    .pricing-feat-chk {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--orange-dim);
+      color: var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+    
+    .pricing-card-alt.combo .pricing-feat-chk {
+      background: rgba(255, 157, 0, 0.1);
+      color: #ff9d00;
+    }
+    
+    .pricing-feat-item.disabled .pricing-feat-chk {
+      background: rgba(255,255,255,0.03);
+      color: var(--gray-600);
+    }
+    
+    /* Specs Matrix */
+    .specs-matrix-section {
+      background: var(--black-3);
+      padding: 80px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    
+    .specs-table-wrapper {
+      overflow-x: auto;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(20, 20, 20, 0.6);
+      backdrop-filter: blur(10px);
+    }
+    
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+      min-width: 800px;
+    }
+    
+    .specs-table th, .specs-table td {
+      padding: 18px 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    
+    .specs-table th {
+      background: rgba(30, 30, 30, 0.8);
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.5px;
+    }
+    
+    .specs-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .specs-table tr:hover td {
+      background: rgba(255, 107, 0, 0.02);
+    }
+    
+    .specs-highlight {
+      color: var(--orange);
+      font-weight: 700;
+    }
+    
+    .specs-gold {
+      color: #ff9d00;
+      font-weight: 700;
+    }
+    
+    /* Info Policy Grid */
+    .info-grid-alt {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 50px;
+    }
+    
+    .info-card-alt {
+      background: rgba(20, 20, 20, 0.5);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      transition: all var(--transition);
+      overflow: hidden;
+    }
+    
+    .info-card-alt:hover {
+      border-color: rgba(255, 107, 0, 0.25);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 107, 0, 0.05);
+      transform: translateY(-4px);
+    }
+    
+    .info-icon-box {
+      width: 100%;
+      height: 160px;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      margin: -30px 0 20px -30px;
+      display: block;
+      background-size: cover;
+      background-position: center;
+      transition: all 0.4s ease;
+      border-bottom: 2px solid rgba(255, 107, 0, 0.2);
+      width: calc(100% + 60px);
+    }
+    .info-card-alt:hover .info-icon-box {
+      border-bottom-color: var(--orange);
+      box-shadow: 0 4px 20px rgba(255, 107, 0, 0.15);
+      transform: scale(1.02);
+    }
+    
+    .info-card-title {
+      font-family: var(--font-head);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    
+    .info-card-desc {
+      font-size: 0.84rem;
+      color: var(--gray-400);
+      line-height: 1.6;
+    }
+
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    @media (max-width: 991px) {
+      .visualizer-card {
+        grid-template-columns: 1fr;
+      }
+      .showroom-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .pricing-grid-alt {
+        grid-template-columns: 1fr 1fr;
+      }
+      .info-grid-alt {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 768px) {
+      .pricing-grid-alt {
+        grid-template-columns: 1fr;
+      }
+      .info-grid-alt {
+        grid-template-columns: 1fr;
+      }
+      .pricing-controls-container {
+        padding: 20px;
+      }
+      .tab-container {
+        flex-direction: column;
+      }
+    }
+    @media (max-width: 640px) {
+      .showroom-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── Light Theme Overrides for Alternate Hero ── */
+    .light-theme .hero-alt-bg {
+      filter: brightness(0.95) contrast(1.05) saturate(1.1) !important;
+    }
+    .light-theme .hero-alt-overlay {
+      background: linear-gradient(135deg, rgba(252, 252, 252, 0.72) 0%, rgba(250, 250, 250, 0.58) 50%, rgba(255, 235, 215, 0.65) 100%) !important;
+    }
+
+    /* ── Light Theme Overrides for Pricing Showcase ── */
+    .light-theme .pricing-section {
+      background: linear-gradient(180deg, var(--black-2) 0%, var(--black) 100%);
+    }
+    .light-theme .pricing-controls-container {
+      background: rgba(255, 255, 255, 0.85);
+      border-color: rgba(0, 0, 0, 0.08);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    }
+    .light-theme .vehicle-selector-row {
+      border-top-color: rgba(0, 0, 0, 0.06);
+    }
+    .light-theme .selected-vehicle-display {
+      color: var(--white);
+    }
+    .light-theme .veh-select-btn {
+      background: var(--black-3);
+      border-color: rgba(0, 0, 0, 0.08);
+      color: var(--gray-400);
+    }
+    .light-theme .veh-select-btn:hover {
+      background: rgba(255, 107, 0, 0.05);
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+    .light-theme .veh-select-btn.active {
+      background: var(--orange);
+      color: #ffffff !important;
+      border-color: var(--orange);
+      box-shadow: 0 4px 15px rgba(255, 107, 0, 0.25);
+    }
+    .light-theme .tab-container {
+      background: var(--black-2);
+      border-color: rgba(0, 0, 0, 0.06);
+    }
+    .light-theme .tab-btn {
+      color: var(--gray-400);
+    }
+    .light-theme .tab-btn:hover {
+      color: var(--orange);
+      background: rgba(255, 107, 0, 0.05);
+    }
+    .light-theme .tab-btn.active {
+      background: var(--orange);
+      color: #ffffff !important;
+      border-color: var(--orange);
+      box-shadow: 0 4px 15px rgba(255, 107, 0, 0.2);
+    }
+    .light-theme .pricing-card-alt {
+      background: #ffffff;
+      border-color: rgba(0, 0, 0, 0.08);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    }
+    .light-theme .pricing-card-alt:hover {
+      border-color: rgba(255, 107, 0, 0.3);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.06), 0 0 20px rgba(255, 107, 0, 0.03);
+    }
+    .light-theme .pricing-card-alt.featured {
+      background: linear-gradient(180deg, #fffcf9 0%, #ffffff 100%);
+      border-color: var(--orange);
+      box-shadow: 0 20px 45px rgba(255, 107, 0, 0.05), 0 0 35px rgba(255, 107, 0, 0.03);
+    }
+    .light-theme .pricing-card-alt.combo {
+      background: linear-gradient(180deg, #fffdf8 0%, #ffffff 100%);
+      border-color: #ff9d00;
+      box-shadow: 0 20px 45px rgba(255, 157, 0, 0.05), 0 0 35px rgba(255, 157, 0, 0.03);
+    }
+    .light-theme .card-category-badge {
+      background: rgba(0, 0, 0, 0.03);
+      border-color: rgba(0, 0, 0, 0.06);
+      color: var(--gray-400);
+    }
+    .light-theme .pricing-card-alt.featured .card-category-badge {
+      border-color: rgba(255, 107, 0, 0.2);
+      color: var(--orange);
+      background: rgba(255, 107, 0, 0.03);
+    }
+    .light-theme .pricing-card-alt.combo .card-category-badge {
+      border-color: rgba(255, 157, 0, 0.2);
+      color: #ff9d00;
+      background: rgba(255, 157, 0, 0.03);
+    }
+    .light-theme .pricing-feat-item.disabled .pricing-feat-chk {
+      background: rgba(0, 0, 0, 0.03);
+    }
+    .light-theme .specs-table-wrapper {
+      background: #ffffff;
+      border-color: rgba(0, 0, 0, 0.08);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    }
+    .light-theme .specs-table th {
+      background: var(--black-2);
+      border-bottom-color: rgba(0, 0, 0, 0.08);
+      color: var(--white);
+    }
+    .light-theme .specs-table td {
+      border-bottom-color: rgba(0, 0, 0, 0.04);
+    }
+    .light-theme .specs-table tr:hover td {
+      background: rgba(255, 107, 0, 0.015);
+    }
+    .light-theme .info-card-alt {
+      background: #ffffff;
+      border-color: rgba(0, 0, 0, 0.06);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    }
+    .light-theme .info-card-alt:hover {
+      border-color: rgba(255, 107, 0, 0.2);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05), 0 0 15px rgba(255, 107, 0, 0.02);
+    }
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 2.2rem;
+      }
+      .hero-eyebrow {
+        font-size: 0.7rem;
+        letter-spacing: 0.5px;
+        padding: 4px 12px;
+        margin-bottom: 16px;
+      }
+      .hero-actions {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
+      .hero-actions .btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+      }
+      .visualizer-card {
+        padding: 24px 16px;
+      }
+      .vis-btn-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .pricing-card-alt {
+        padding: 30px 20px;
+      }
+      .info-card-alt {
+        padding: 20px;
+      }
+      .veh-btn-grid {
+        justify-content: center;
+      }
+      .veh-select-btn {
+        padding: 10px 14px;
+        font-size: 0.78rem;
+      }
+      .cta-actions {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .cta-actions .btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+      }
+    }
+    @media (max-width: 360px) {
+      .hero-title {
+        font-size: 1.8rem;
+        line-height: 1.2;
+      }
+      .hero-eyebrow {
+        font-size: 0.65rem;
+        letter-spacing: 0.2px;
+        padding: 3px 8px;
+        margin-bottom: 12px;
+      }
+      .visualizer-card {
+        padding: 16px 12px;
+      }
+      .vis-btn {
+        font-size: 0.8rem;
+        padding: 10px 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav Placeholder -->
+<div id="nav-placeholder"></div>
+
+<!-- ══ HERO ALT ══ -->
+<section class="hero-alt">
+  <div class="hero-alt-bg"></div>
+  <div class="hero-alt-overlay"></div>
+  <div class="hero-particles"></div>
+
+  <div class="hero-alt-content">
+    <div class="hero-eyebrow reveal">
+      <div class="hero-eyebrow-dot"></div>
+      Premium Mobile Car Protection
+    </div>
+    <h1 class="hero-title reveal" style="opacity: 1;">
+      Showroom Excellence<br>
+      <span class="line-orange">At Your Doorstep</span>
+    </h1>
+    <p class="hero-subtitle reveal" style="opacity: 1; margin-left: auto; margin-right: auto;">
+      Experience premium mobile window tinting, Paint Protection Film (PPF), and ceramic coatings from South Florida's certified installation leaders.
+    </p>
+    <div class="hero-actions reveal" style="opacity: 1; justify-content: center;">
+      <a href="booking.html" class="btn btn-primary btn-lg pulse-glow">Book Mobile Service</a>
+      <a href="#visualizer" class="btn btn-ghost btn-lg">Try Tint Simulator</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TINT VISUALIZER ══ -->
+<section class="visualizer-section" id="visualizer">
+  <div class="container">
+    <div class="section-header centered reveal">
+      <div class="section-label">Interactive Simulator</div>
+      <h2 class="section-title">Car <span>Tint Shade</span> Visualizer</h2>
+      <p class="section-subtitle">Click the tint percentages to simulate the shading effect on our demo vehicle's windows.</p>
+    </div>
+
+    <div class="visualizer-card reveal">
+      <!-- Left: Visual Representation -->
+      <div class="vis-graphic-wrap">
+        <img src="images/red_lambo.jpg" alt="Demo Tint Visualizer Car" class="vis-car-bg" />
+        <div class="vis-glass-overlay" id="tintGlassOverlay"></div>
+      </div>
+
+      <!-- Right: Controls -->
+      <div class="vis-controls">
+        <h4 style="font-family:var(--font-head);font-size:1.4rem;color:var(--white);">Select Tint shade level</h4>
+        <p style="font-size:.85rem;color:var(--gray-400);line-height:1.6;">
+          Lower VLT (Visible Light Transmission) percentages mean darker shades. Block heat, gain privacy, and keep glare away.
+        </p>
+
+        <div class="vis-btn-grid">
+          <button class="vis-btn" data-vlt="50" onclick="setVisualizerTint(this, 0.4)">50%</button>
+          <button class="vis-btn active" data-vlt="35" onclick="setVisualizerTint(this, 0.65)">35%</button>
+          <button class="vis-btn" data-vlt="15" onclick="setVisualizerTint(this, 0.82)">15%</button>
+          <button class="vis-btn" data-vlt="5" onclick="setVisualizerTint(this, 0.94)">5%</button>
+        </div>
+
+        <div style="background:var(--black-2);padding:20px;border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,0.03);">
+          <div style="font-family:var(--font-head);font-size:1.1rem;color:var(--orange);margin-bottom:6px;" id="visInfoTitle">35% Ceramic Shade</div>
+          <p style="font-size:.8rem;color:var(--gray-400);line-height:1.6;" id="visInfoDesc">
+            Excellent balance of heat rejection, glare reduction, and legal visibility for all side windows.
+          </p>
+        </div>
+
+        <a href="booking.html" class="btn btn-primary" style="justify-content:center;">Book This Shade →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRICING SHOWCASE ══ -->
+<section class="pricing-section" id="pricing">
+  <div class="container">
+
+    <!-- Section Header -->
+    <div class="pricing-header-wrap reveal">
+      <div class="section-label">Transparent Pricing</div>
+      <h2 class="section-title">Premium <span>Protection Packages</span></h2>
+      <p class="section-subtitle">No surprise fees. Certified technicians, premium materials, and showroom results — guaranteed.</p>
+    </div>
+
+    <!-- Controls: Category Tabs + Vehicle Selector -->
+    <div class="pricing-controls-container reveal">
+      <div class="control-label">Filter By Category</div>
+      <div class="tab-container" id="pricingTabContainer">
+        <button class="tab-btn active" data-filter="all" id="tabAll">All Packages</button>
+        <button class="tab-btn" data-filter="tint" id="tabTint">Window Tinting</button>
+        <button class="tab-btn" data-filter="ppf" id="tabPPF">Paint Protection</button>
+        <button class="tab-btn" data-filter="combo" id="tabCombo">Protection Combos</button>
+      </div>
+
+      <div class="vehicle-selector-row">
+        <div class="selected-vehicle-display">
+          Vehicle Class: <span id="pricingVehicleLabel">Coupe / Sedan</span>
+        </div>
+        <div class="veh-btn-grid">
+          <button class="veh-select-btn active" data-multiplier="1.0" data-label="Coupe / Sedan" id="vehSedan"><img src="images/red_lambo.jpg" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;border:1px solid rgba(255,107,0,0.3);"> Sedan</button>
+          <button class="veh-select-btn" data-multiplier="1.25" data-label="Midsize SUV / Crossover" id="vehSUV"><img src="images/aston_martin.jpg" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;border:1px solid rgba(255,107,0,0.3);"> SUV / Crossover</button>
+          <button class="veh-select-btn" data-multiplier="1.45" data-label="Full-Size SUV / Pickup" id="vehTruck"><img src="images/golden_car.jpg" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;border:1px solid rgba(255,107,0,0.3);"> Truck / Full SUV</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pricing Cards Grid -->
+    <div class="pricing-grid-alt" id="pricingGrid">
+
+      <!-- 1. Carbon Basic -->
+      <div class="pricing-card-alt reveal" data-category="tint">
+        <span class="card-category-badge">Window Tinting</span>
+        <h3 class="pricing-table-hdr">Carbon Basic</h3>
+        <div class="pricing-price-row">
+          <span class="pricing-price-currency">$</span>
+          <span class="pricing-price-val" data-base="199" id="priceCarbon">199</span>
+          <span class="pricing-price-period">/ package</span>
+        </div>
+        <p class="pricing-card-desc">Carbon-infused film delivering reliable color stability, UV blocking, and standard thermal protection.</p>
+        <ul class="pricing-features-list">
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Blocks 99% UV Rays</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Up to 35% Solar Heat Rejection</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Non-Metallic (No Signal Interference)</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Lifetime Film Warranty</li>
+          <li class="pricing-feat-item disabled"><span class="pricing-feat-chk">✓</span> Nano-Ceramic Heat Filtering</li>
+          <li class="pricing-feat-item disabled"><span class="pricing-feat-chk">✓</span> Self-Healing Scratch Defense</li>
+        </ul>
+        <a href="booking.html" class="btn btn-outline" style="width:100%;justify-content:center;">Choose Carbon Basic →</a>
+      </div>
+
+      <!-- 2. Ceramic Elite Shield (Featured) -->
+      <div class="pricing-card-alt featured reveal" data-delay="100" data-category="tint">
+        <span class="card-category-badge">Window Tinting</span>
+        <h3 class="pricing-table-hdr">Ceramic Elite Shield</h3>
+        <div class="pricing-price-row">
+          <span class="pricing-price-currency">$</span>
+          <span class="pricing-price-val" data-base="349" id="priceCeramic">349</span>
+          <span class="pricing-price-period">/ package</span>
+        </div>
+        <p class="pricing-card-desc">High-performance ceramic tinting delivering outstanding heat rejection, glare control, and signal clarity.</p>
+        <ul class="pricing-features-list">
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Blocks 99% UV Rays</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Up to 60% Solar Heat Rejection</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Nano-Ceramic Heat Filtering</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Non-Metallic (No Signal Interference)</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Lifetime Film Warranty</li>
+          <li class="pricing-feat-item disabled"><span class="pricing-feat-chk">✓</span> Self-Healing Scratch Defense</li>
+        </ul>
+        <a href="booking.html" class="btn btn-primary" style="width:100%;justify-content:center;">Choose Ceramic Elite →</a>
+      </div>
+
+      <!-- 3. Nano Ceramic Max -->
+      <div class="pricing-card-alt reveal" data-delay="200" data-category="tint">
+        <span class="card-category-badge">Window Tinting</span>
+        <h3 class="pricing-table-hdr">Nano Ceramic Max</h3>
+        <div class="pricing-price-row">
+          <span class="pricing-price-currency">$</span>
+          <span class="pricing-price-val" data-base="499" id="priceNano">499</span>
+          <span class="pricing-price-period">/ package</span>
+        </div>
+        <p class="pricing-card-desc">Top-tier nano-ceramic film with maximum heat rejection, advanced glare control, and scratch resistance.</p>
+        <ul class="pricing-features-list">
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Blocks 99% UV Rays</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Up to 68% Solar Heat Rejection</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Nano-Ceramic Heat Filtering</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Advanced Scratch Resistance</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Non-Metallic (No Signal Interference)</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Lifetime Film Warranty</li>
+        </ul>
+        <a href="booking.html" class="btn btn-outline" style="width:100%;justify-content:center;">Choose Nano Ceramic Max →</a>
+      </div>
+
+      <!-- 4. PPF Front Shield -->
+      <div class="pricing-card-alt reveal" data-delay="100" data-category="ppf">
+        <span class="card-category-badge">Paint Protection Film</span>
+        <h3 class="pricing-table-hdr">PPF Front Shield</h3>
+        <div class="pricing-price-row">
+          <span class="pricing-price-currency">$</span>
+          <span class="pricing-price-val" data-base="899" id="pricePPFFront">899</span>
+          <span class="pricing-price-period">/ package</span>
+        </div>
+        <p class="pricing-card-desc">Tough paint defense film applied to the hood, front bumper, headlights, and mirrors for targeted coverage.</p>
+        <ul class="pricing-features-list">
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Full Front Panel Coverage</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Self-Healing Polyurethane Film</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Resists Road Chips &amp; Salts</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> High-Gloss Hydrophobic Finish</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> 10-Year Clear Finish Warranty</li>
+          <li class="pricing-feat-item disabled"><span class="pricing-feat-chk">✓</span> Full Body Coverage</li>
+        </ul>
+        <a href="booking.html" class="btn btn-outline" style="width:100%;justify-content:center;">Choose Front Shield →</a>
+      </div>
+
+      <!-- 5. Full Body PPF Armor -->
+      <div class="pricing-card-alt reveal" data-delay="200" data-category="ppf">
+        <span class="card-category-badge">Paint Protection Film</span>
+        <h3 class="pricing-table-hdr">Full Body PPF Armor</h3>
+        <div class="pricing-price-row">
+          <span class="pricing-price-currency">$</span>
+          <span class="pricing-price-val" data-base="2999" id="pricePPFBody">2999</span>
+          <span class="pricing-price-period">/ package</span>
+        </div>
+        <p class="pricing-card-desc">Complete vehicle wrap in premium self-healing PPF film — protecting every panel from bumper to bumper.</p>
+        <ul class="pricing-features-list">
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Full Vehicle Coverage</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Self-Healing Polyurethane Film</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Maximum Chip &amp; Scratch Defense</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> High-Gloss Hydrophobic Finish</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> UV-Stable, No Yellowing</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> 10-Year Manufacturer Warranty</li>
+        </ul>
+        <a href="booking.html" class="btn btn-outline" style="width:100%;justify-content:center;">Choose Full Armor →</a>
+      </div>
+
+      <!-- 6. Ultimate Shield Combo -->
+      <div class="pricing-card-alt combo reveal" data-delay="100" data-category="combo">
+        <span class="card-category-badge">Full Protection Combo</span>
+        <h3 class="pricing-table-hdr">Ultimate Shield Plan</h3>
+        <div class="pricing-price-row">
+          <span class="pricing-price-currency">$</span>
+          <span class="pricing-price-val" data-base="3999" id="priceUltimate">3999</span>
+          <span class="pricing-price-period">/ package</span>
+        </div>
+        <p class="pricing-card-desc">The all-in-one luxury bundle combining full body PPF armor with premium ceramic window tinting for total protection.</p>
+        <ul class="pricing-features-list">
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Full Body PPF Armor</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Ceramic Elite Window Tinting</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Self-Healing PPF Film</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> 68% Solar Heat Rejection</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> UV + Glare + Chip Defense</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Lifetime Tint + 10-Yr PPF Warranty</li>
+        </ul>
+        <a href="booking.html" class="btn btn-primary" style="width:100%;justify-content:center;background:#ff9d00;border-color:#ff9d00;">Choose Ultimate Shield →</a>
+      </div>
+
+      <!-- 7. Exotic Specialty Custom Fit -->
+      <div class="pricing-card-alt combo reveal" data-delay="200" data-category="combo">
+        <span class="card-category-badge">Luxury / Exotic</span>
+        <h3 class="pricing-table-hdr">Exotic Specialty Fit</h3>
+        <div class="pricing-price-row">
+          <span class="pricing-price-currency">$</span>
+          <span class="pricing-price-val" data-base="4999" id="priceExotic">4999</span>
+          <span class="pricing-price-period">/ package</span>
+        </div>
+        <p class="pricing-card-desc">Bespoke custom-fit protection package designed for exotic, high-value, and collector vehicles with complex body lines.</p>
+        <ul class="pricing-features-list">
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Custom-Cut PPF for Exotic Panels</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Nano Ceramic Max Tinting</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Precision Paint-Matched Trim Protection</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Concierge Mobile or In-Bay Service</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Dedicated Installation Technician</li>
+          <li class="pricing-feat-item"><span class="pricing-feat-chk">✓</span> Lifetime + 10-Yr Dual Warranty</li>
+        </ul>
+        <a href="booking.html" class="btn btn-primary" style="width:100%;justify-content:center;background:#ff9d00;border-color:#ff9d00;">Book Exotic Consult →</a>
+      </div>
+
+    </div><!-- /pricing-grid-alt -->
+  </div><!-- /container -->
+</section>
+
+<!-- ══ FILM SPECIFICATION MATRIX ══ -->
+<section class="specs-matrix-section">
+  <div class="container">
+    <div class="section-header centered reveal">
+      <div class="section-label">Detailed Comparison</div>
+      <h2 class="section-title">Film <span>Specification</span> Matrix</h2>
+      <p class="section-subtitle">Review distinct performance stats for each product to select the perfect protection package.</p>
+    </div>
+
+    <div class="specs-table-wrapper reveal">
+      <table class="specs-table">
+        <thead>
+          <tr>
+            <th>Performance Metric</th>
+            <th>Carbon Basic</th>
+            <th>Ceramic Elite</th>
+            <th>Nano Ceramic Max</th>
+            <th>PPF Front Shield</th>
+            <th>Full Body PPF</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>UV Ray Deflection</td>
+            <td class="specs-highlight">99%</td>
+            <td class="specs-highlight">99%</td>
+            <td class="specs-highlight">99%</td>
+            <td class="specs-highlight">99%</td>
+            <td class="specs-highlight">99%</td>
+          </tr>
+          <tr>
+            <td>Total Solar Heat Rejection (TSER)</td>
+            <td>35%</td>
+            <td class="specs-highlight">60%</td>
+            <td class="specs-highlight">68%</td>
+            <td>N/A</td>
+            <td>N/A</td>
+          </tr>
+          <tr>
+            <td>Glare / Visible Light Reduction</td>
+            <td>70%</td>
+            <td class="specs-highlight">88%</td>
+            <td class="specs-highlight">94%</td>
+            <td>N/A</td>
+            <td>N/A</td>
+          </tr>
+          <tr>
+            <td>Wireless Signal Interference</td>
+            <td>None</td>
+            <td>None</td>
+            <td>None</td>
+            <td>None</td>
+            <td>None</td>
+          </tr>
+          <tr>
+            <td>Scratch / Chip Resistance</td>
+            <td>Standard</td>
+            <td>Standard</td>
+            <td>Advanced</td>
+            <td class="specs-highlight">Maximum</td>
+            <td class="specs-highlight">Maximum</td>
+          </tr>
+          <tr>
+            <td>Self-Healing Polyurethane Layer</td>
+            <td>No</td>
+            <td>No</td>
+            <td>No</td>
+            <td class="specs-highlight">Yes</td>
+            <td class="specs-highlight">Yes</td>
+          </tr>
+          <tr>
+            <td>Hydrophobic Coating</td>
+            <td>No</td>
+            <td>No</td>
+            <td>No</td>
+            <td class="specs-highlight">Yes</td>
+            <td class="specs-highlight">Yes</td>
+          </tr>
+          <tr>
+            <td>Warranty Coverage</td>
+            <td>Lifetime</td>
+            <td>Lifetime</td>
+            <td>Lifetime</td>
+            <td class="specs-gold">10 Years</td>
+            <td class="specs-gold">10 Years</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══ INFO & POLICIES GUIDE ══ -->
+<section class="pricing-section" style="padding-top:80px;padding-bottom:100px;background:var(--black-2);">
+  <div class="container">
+    <div class="section-header centered reveal">
+      <div class="section-label">Service Information</div>
+      <h2 class="section-title">What You Need <span>To Know</span></h2>
+      <p class="section-subtitle">Transparent policies, UV benefits, warranty details, and everything you need before booking your service.</p>
+    </div>
+
+    <div class="info-grid-alt">
+
+      <div class="info-card-alt reveal">
+        <span class="info-icon-box" style="background-image: url('images/tint_result.jpg');"></span>
+        <h4 class="info-card-title">UV Protection Benefits</h4>
+        <p class="info-card-desc">Our films block 99% of harmful UV rays, protecting your skin from prolonged exposure and preventing interior fading, leather cracking, and dashboard discoloration.</p>
+      </div>
+
+      <div class="info-card-alt reveal" data-delay="100">
+        <span class="info-icon-box" style="background-image: url('images/coating_detail.jpg');"></span>
+        <h4 class="info-card-title">Warranty Information</h4>
+        <p class="info-card-desc">Window tinting films carry a <strong style="color:var(--orange);">Lifetime Warranty</strong> against bubbling, peeling, and fading. PPF packages include a <strong style="color:var(--orange);">10-Year Manufacturer Warranty</strong> covering yellowing and adhesion failure.</p>
+      </div>
+
+      <div class="info-card-alt reveal" data-delay="200">
+        <span class="info-icon-box" style="background-image: url('images/detailing_shop.jpg');"></span>
+        <h4 class="info-card-title">Service Duration</h4>
+        <p class="info-card-desc">Standard window tinting takes <strong style="color:var(--white);">2–3 hours</strong>. PPF installations typically require <strong style="color:var(--white);">1–2 days</strong> for complete cure. Combo packages may require scheduling over two appointments.</p>
+      </div>
+
+      <div class="info-card-alt reveal" data-delay="100">
+        <span class="info-icon-box" style="background-image: url('images/orange_service_van.jpg');"></span>
+        <h4 class="info-card-title">Mobile Service Charges</h4>
+        <p class="info-card-desc">We offer <strong style="color:var(--orange);">complimentary mobile service</strong> within 35 miles of Miami. No hidden travel fees. Service to extended areas incurs a flat $45–$85 travel charge depending on distance.</p>
+      </div>
+
+      <div class="info-card-alt reveal" data-delay="200">
+        <span class="info-icon-box" style="background-image: url('images/vinyl_wrap_porsche.jpg');"></span>
+        <h4 class="info-card-title">Add-On Services</h4>
+        <p class="info-card-desc">Upgrade any package with: <strong style="color:var(--white);">Sunroof tinting</strong> (+$80), <strong style="color:var(--white);">Windshield strip</strong> (+$60), <strong style="color:var(--white);">Headlight tinting</strong> (+$120), and <strong style="color:var(--white);">Glass hydrophobic coating</strong> (+$95).</p>
+      </div>
+
+      <div class="info-card-alt reveal" data-delay="300">
+        <span class="info-icon-box" style="background-image: url('images/car_window_rain.jpg');"></span>
+        <h4 class="info-card-title">Maintenance Tips</h4>
+        <p class="info-card-desc">Wait <strong style="color:var(--white);">72 hours</strong> before rolling down windows after tint installation. Always use <strong style="color:var(--white);">ammonia-free cleaning products</strong>. For PPF, avoid pressure washing edges within 48 hours of installation.</p>
+      </div>
+
+    </div>
+
+    <div class="cta-actions reveal" style="margin-top:60px;">
+      <a href="booking.html" class="btn btn-primary btn-lg pulse-glow">Book Your Service Now</a>
+      <a href="booking.html" class="btn btn-outline btn-lg">Get a Free Quote</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SHOWROOM STYLES ══ -->
+<section>
+  <div class="container">
+    <div class="section-header centered reveal">
+      <div class="section-label">Vehicle Solutions</div>
+      <h2 class="section-title">Tailored For <span>Your Vehicle</span></h2>
+      <p class="section-subtitle">We configure film patterns specifically suited for different model curves and frame sizes.</p>
+    </div>
+
+    <div class="showroom-grid">
+      <div class="showroom-card reveal">
+        <span class="showroom-icon" style="background-image: url('images/red_lambo.jpg');"></span>
+        <h4 class="showroom-title">Coupe & Sedan</h4>
+        <p class="showroom-desc">Sporty, clean look with precise framing around frameless doors and large rear window angles.</p>
+      </div>
+
+      <div class="showroom-card reveal" data-delay="100">
+        <span class="showroom-icon" style="background-image: url('images/aston_martin.jpg');"></span>
+        <h4 class="showroom-title">SUV & Crossover</h4>
+        <p class="showroom-desc">Heat rejection for family passengers, UV protection, and matching front windows shade to rear factory glass.</p>
+      </div>
+
+      <div class="showroom-card reveal" data-delay="200">
+        <span class="showroom-icon" style="background-image: url('images/golden_car.jpg');"></span>
+        <h4 class="showroom-title">Trucks & Fleets</h4>
+        <p class="showroom-desc">Tough carbon tint films to endure daily service, reducing cabin heat during long drives.</p>
+      </div>
+
+      <div class="showroom-card reveal" data-delay="300">
+        <span class="showroom-icon" style="background-image: url('images/mclaren_doors.jpg');"></span>
+        <h4 class="showroom-title">Exotic & Specialty</h4>
+        <p class="showroom-desc">Custom fit self-healing Paint Protection Film (PPF) designed to preserve high-value paint systems.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer Placeholder -->
+<div id="footer-placeholder"></div>
+
+<script src="js/components.js"></script>
+<script src="js/main.js"></script>
+<script>
+  function setVisualizerTint(btn, opacity) {
+    document.querySelectorAll('.vis-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const overlay = document.getElementById('tintGlassOverlay');
+    if (overlay) {
+      overlay.style.backgroundColor = `rgba(10, 10, 10, ${opacity})`;
+    }
+
+    const infoTitle = document.getElementById('visInfoTitle');
+    const infoDesc = document.getElementById('visInfoDesc');
+    const vlt = btn.dataset.vlt;
+
+    if (vlt == "50") {
+      infoTitle.textContent = "50% Light Smoke Shade";
+      infoDesc.textContent = "Subtle solar tint. High visible light transmission while filtering UV rays and mild heat.";
+    } else if (vlt == "35") {
+      infoTitle.textContent = "35% Classic Ceramic Shade";
+      infoDesc.textContent = "Excellent balance of heat rejection, glare reduction, and legal visibility for all side windows.";
+    } else if (vlt == "15") {
+      infoTitle.textContent = "15% Premium Dark Shade";
+      infoDesc.textContent = "Very popular shade. Enhances vehicle styling with excellent heat rejection and high interior privacy.";
+    } else if (vlt == "5") {
+      infoTitle.textContent = "5% Limo Privacy Shade";
+      infoDesc.textContent = "Maximum privacy and maximum glare blockage. Ideal for rear SUV windows and special show styling.";
+    }
+  }
+
+  // ── Pricing Multiplier + Category Filter Logic ──
+  document.addEventListener('DOMContentLoaded', () => {
+    // Pre-initialize tint visualizer
+    const defaultVisBtn = document.querySelector('.vis-btn[data-vlt="35"]');
+    if (defaultVisBtn) setVisualizerTint(defaultVisBtn, 0.65);
+
+    // ── Vehicle Multiplier ──
+    const vehBtns = document.querySelectorAll('.veh-select-btn');
+    const vehicleLabel = document.getElementById('pricingVehicleLabel');
+    const priceEls = document.querySelectorAll('.pricing-price-val[data-base]');
+
+    function applyMultiplier(multiplier) {
+      priceEls.forEach(el => {
+        const base = parseFloat(el.dataset.base);
+        el.textContent = Math.round(base * multiplier).toLocaleString();
+      });
+    }
+
+    vehBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        vehBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const multiplier = parseFloat(btn.dataset.multiplier);
+        const label = btn.dataset.label;
+        if (vehicleLabel) vehicleLabel.textContent = label;
+        applyMultiplier(multiplier);
+      });
+    });
+
+    // ── Category Filter Tabs ──
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const cards = document.querySelectorAll('.pricing-card-alt');
+
+    function filterCards(filterVal) {
+      cards.forEach(card => {
+        // Clear any pending timeout for this card
+        if (card.dataset.timeoutId) {
+          clearTimeout(parseInt(card.dataset.timeoutId));
+          card.dataset.timeoutId = '';
+        }
+
+        const isMatch = (filterVal === 'all' || card.dataset.category === filterVal);
+
+        if (isMatch) {
+          // If it was hidden or display was none, make it flex
+          if (card.style.display === 'none' || !card.style.display) {
+            card.style.display = 'flex';
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.95)';
+          }
+          // Force a reflow to make sure display:flex is registered
+          void card.offsetHeight;
+          card.style.opacity = '1';
+          card.style.transform = ''; // Clear inline transform so CSS hover translateY works!
+          card.style.pointerEvents = 'auto';
+        } else {
+          card.style.opacity = '0';
+          card.style.transform = 'scale(0.95)';
+          card.style.pointerEvents = 'none';
+          
+          const tid = setTimeout(() => {
+            card.style.display = 'none';
+            card.dataset.timeoutId = '';
+          }, 300);
+          card.dataset.timeoutId = tid;
+        }
+      });
+    }
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        filterCards(filter);
+      });
+    });
+
+    // Initialize with all visible
+    applyMultiplier(1.0);
+  });
+</script>
+</body>
+</html>

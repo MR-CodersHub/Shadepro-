@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frequently Asked Questions — ShadePro Premium Window Tint & PPF</title>
+  <meta name="description" content="Get answers about window tint curing, mobile detailing requirements, Paint Protection Film durability, and warranty details." />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <style>
+    /* ── FAQ Accordion ── */
+    .faq-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .faq-category-title {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--orange);
+      margin-top: 50px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-bottom: 1.5px solid var(--charcoal);
+      padding-bottom: 8px;
+    }
+    .faq-category-title:first-of-type {
+      margin-top: 0;
+    }
+    .faq-item {
+      background: var(--black-3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-sm);
+      margin-bottom: 16px;
+      overflow: hidden;
+      transition: all var(--transition);
+    }
+    .faq-item.open {
+      border-color: var(--orange);
+      box-shadow: 0 0 20px rgba(255,107,0,0.12);
+    }
+    .faq-header {
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      transition: background var(--transition);
+    }
+    .faq-header:hover {
+      background: rgba(255,255,255,0.02);
+    }
+    .faq-question {
+      font-family: var(--font-head);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.5px;
+    }
+    .faq-toggle {
+      font-size: 1.2rem;
+      color: var(--orange);
+      transition: transform var(--transition);
+    }
+    .faq-item.open .faq-toggle {
+      transform: rotate(45deg);
+    }
+    .faq-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .faq-content {
+      padding: 0 24px 24px;
+      font-size: 0.9rem;
+      color: var(--gray-400);
+      line-height: 1.8;
+    }
+    @media (max-width: 480px) {
+      .faq-header {
+        padding: 16px 18px;
+      }
+      .faq-question {
+        font-size: 1.02rem;
+      }
+      .faq-content {
+        padding: 0 18px 20px;
+      }
+      .faq-category-title {
+        font-size: 1.2rem;
+        margin-top: 36px;
+      }
+    }
+    @media (max-width: 360px) {
+      .faq-header {
+        padding: 14px 12px;
+      }
+      .faq-question {
+        font-size: 0.95rem;
+      }
+      .faq-content {
+        padding: 0 12px 16px;
+      }
+      .faq-toggle {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav Placeholder -->
+<div id="nav-placeholder"></div>
+
+<!-- ══ PAGE HERO ══ -->
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('images/detailing_shop.jpg');"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <span style="color:var(--white);">FAQ</span>
+    </div>
+    <h1 class="page-hero-title">General <span>FAQ</span></h1>
+    <p class="page-hero-sub">Got questions about film curing, protection specs, or mobile detailing? We've got answers.</p>
+  </div>
+</section>
+
+<!-- ══ FAQ ACCORDIONS ══ -->
+<section class="section-alt">
+  <div class="container">
+    <div class="faq-wrapper">
+
+      <!-- Category: Window Tinting -->
+      <div class="faq-category-title reveal">Window Tinting</div>
+
+      <div class="faq-item reveal">
+        <div class="faq-header" onclick="toggleFaq(this)">
+          <span class="faq-question">How long does it take for window tint to cure?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-body">
+          <div class="faq-content">
+            Curing typically takes between 2 to 5 days depending on the weather conditions and humidity in Florida. During this period, you may notice small water bubbles or a hazy appearance. This is completely normal and will evaporate naturally. Do not roll down your windows for at least 3 days.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-header" onclick="toggleFaq(this)">
+          <span class="faq-question">What is the difference between carbon and ceramic tint?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-body">
+          <div class="faq-content">
+            Carbon tint uses carbon particles to absorb infrared light, blocking up to 40% of solar heat. Ceramic tint is infused with advanced nano-ceramic particles that filter out infrared heat, rejecting up to 60-65% of solar heat. Ceramic tint provides superior clarity and heat rejection.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-header" onclick="toggleFaq(this)">
+          <span class="faq-question">Is your window film signal-friendly?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-body">
+          <div class="faq-content">
+            Yes, all our carbon and ceramic films are 100% non-metallic. They will not interfere with cellular reception, GPS navigation, satellite radio, Bluetooth, or tire pressure monitors.
+          </div>
+        </div>
+      </div>
+
+      <!-- Category: Paint Protection Film -->
+      <div class="faq-category-title reveal">Paint Protection Film (PPF)</div>
+
+      <div class="faq-item reveal">
+        <div class="faq-header" onclick="toggleFaq(this)">
+          <span class="faq-question">How does PPF self-healing work?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-body">
+          <div class="faq-content">
+            Our premium clear PPF is constructed from elastomeric polyurethane polymers. When exposed to heat (like direct sunlight or warm water), the polymers relax and return to their original, flat configuration, making light scratches and swirl marks disappear.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-header" onclick="toggleFaq(this)">
+          <span class="faq-question">Will Paint Protection Film turn yellow over time?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-body">
+          <div class="faq-content">
+            No, we install only high-grade XPEL and STEK films featuring premium acrylic adhesives. They include integrated UV inhibitors that prevent yellowing, cracking, or lifting, and are backed by a 10-year manufacturer warranty.
+          </div>
+        </div>
+      </div>
+
+      <!-- Category: Mobile Detailing -->
+      <div class="faq-category-title reveal">Mobile Service</div>
+
+      <div class="faq-item reveal">
+        <div class="faq-header" onclick="toggleFaq(this)">
+          <span class="faq-question">What are the requirements for a mobile installation?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-body">
+          <div class="faq-content">
+            For premium window tinting and PPF installations, we require a clean, enclosed garage or shaded carport shield protected from strong winds and airborne dust. We also need access to a standard electrical outlet. If you don't have a garage, contact us, and we can discuss alternative arrangements.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-header" onclick="toggleFaq(this)">
+          <span class="faq-question">Do you charge extra for mobile service?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-body">
+          <div class="faq-content">
+            No, our mobile service is included in all standard packages within our designated service area (Miami & surrounding cities). There are no hidden call-out fees.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Footer Placeholder -->
+<div id="footer-placeholder"></div>
+
+<script src="js/components.js"></script>
+<script src="js/main.js"></script>
+<script>
+  function toggleFaq(header) {
+    const item = header.parentElement;
+    const body = item.querySelector('.faq-body');
+
+    if (item.classList.contains('open')) {
+      body.style.maxHeight = '0px';
+      item.classList.remove('open');
+    } else {
+      // Close all others in the same section optional
+      document.querySelectorAll('.faq-item').forEach(i => {
+        if (i !== item) {
+          i.classList.remove('open');
+          i.querySelector('.faq-body').style.maxHeight = '0px';
+        }
+      });
+
+      body.style.maxHeight = body.scrollHeight + 'px';
+      item.classList.add('open');
+    }
+  }
+</script>
+</body>
+</html>

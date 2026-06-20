@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing Packages — ShadePro Premium Window Tint & PPF</title>
+  <meta name="description" content="Transparent pricing for window tinting, ceramic tint, Paint Protection Film (PPF), and ceramic coating packages in Miami." />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <style>
+    /* ── Vehicle Selector Header ── */
+    .pricing-selector-wrap {
+      background: var(--black-3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-lg);
+      padding: 24px 30px;
+      margin-bottom: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .selector-text {
+      font-family: var(--font-head);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+    .selector-text span {
+      color: var(--orange);
+    }
+    .pricing-btns {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .pricing-select-btn {
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      background: var(--black-2);
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: all var(--transition);
+    }
+    .pricing-select-btn:hover, .pricing-select-btn.active {
+      color: var(--white);
+      border-color: var(--orange);
+      background: var(--orange-dim);
+      box-shadow: 0 0 15px rgba(255,107,0,0.15);
+    }
+
+    /* ── Pricing Tables ── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-bottom: 70px;
+    }
+    .pricing-card {
+      background: var(--black-3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-lg);
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: all var(--transition);
+    }
+    .pricing-card:hover {
+      transform: translateY(-8px);
+    }
+    .pricing-card.featured {
+      border-color: var(--orange);
+      box-shadow: var(--orange-glow-lg);
+    }
+    .pricing-card.featured::before {
+      content: 'POPULAR';
+      position: absolute;
+      top: 18px; right: -30px;
+      background: var(--orange);
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 4px 30px;
+      transform: rotate(45deg);
+      letter-spacing: 1px;
+    }
+    .price-package-name {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .price-value-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-bottom: 24px;
+    }
+    .price-currency {
+      font-family: var(--font-head);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--orange);
+    }
+    .price-value {
+      font-family: var(--font-head);
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+    }
+    .price-period {
+      font-size: 0.85rem;
+      color: var(--gray-600);
+      margin-left: 4px;
+    }
+    .price-desc {
+      font-size: 0.88rem;
+      color: var(--gray-400);
+      line-height: 1.6;
+      margin-bottom: 30px;
+      min-height: 50px;
+    }
+    .price-checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 36px;
+      flex: 1;
+    }
+    .price-check-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
+      color: var(--gray-400);
+    }
+    .price-check-item.disabled {
+      color: var(--gray-600);
+      text-decoration: line-through;
+    }
+    .price-check-icon {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--orange-dim);
+      color: var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .price-check-item.disabled .price-check-icon {
+      background: rgba(255,255,255,0.03);
+      color: var(--gray-600);
+    }
+
+    /* ── Comparison Matrix ── */
+    .matrix-section {
+      background: var(--black-2);
+      padding: 90px 0;
+    }
+    .matrix-table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+      min-width: 700px;
+    }
+    .matrix-table th, .matrix-table td {
+      padding: 16px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .matrix-table th {
+      background: var(--black-3);
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+    .matrix-table tr:hover td {
+      background: rgba(255,107,0,0.02);
+    }
+    .matrix-check {
+      color: var(--orange);
+      font-weight: 900;
+    }
+
+    @media (max-width: 991px) {
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      .pricing-selector-wrap {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+    @media (max-width: 480px) {
+      .pricing-selector-wrap {
+        padding: 20px 16px;
+        margin-bottom: 30px;
+      }
+      .selector-text {
+        font-size: 1.1rem;
+        text-align: center;
+      }
+      .pricing-btns {
+        justify-content: center;
+      }
+      .pricing-select-btn {
+        padding: 8px 12px;
+        font-size: 0.75rem;
+        flex: 1;
+        text-align: center;
+      }
+      .pricing-card {
+        padding: 30px 20px;
+      }
+    }
+    @media (max-width: 360px) {
+      .pricing-selector-wrap {
+        padding: 16px 12px;
+        margin-bottom: 24px;
+      }
+      .pricing-btns {
+        flex-direction: column;
+      }
+      .pricing-select-btn {
+        width: 100%;
+      }
+      .pricing-card {
+        padding: 24px 16px;
+      }
+      .price-value {
+        font-size: 2.8rem;
+      }
+      .price-checklist {
+        gap: 10px;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+
+<!-- ══ PAGE HERO ══ -->
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('images/silver_sports_car.jpg');"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <span style="color:var(--white);">Pricing</span>
+    </div>
+    <h1 class="page-hero-title">Transparent <span>Pricing</span></h1>
+    <p class="page-hero-sub">Premium materials, certified technicians, and absolute styling value with no surprise fees.</p>
+  </div>
+</section>
+
+<!-- ══ PRICING PACKAGES ══ -->
+<section>
+  <div class="container">
+    <!-- Interactive Selector -->
+    <div class="pricing-selector-wrap reveal">
+      <div class="selector-text">
+        Selected Vehicle: <span id="vehicleLabel">Coupe / Sedan</span>
+      </div>
+      <div class="pricing-btns">
+        <button class="pricing-select-btn active" data-multiplier="1.0" data-label="Coupe / Sedan">Sedan</button>
+        <button class="pricing-select-btn" data-multiplier="1.25" data-label="Midsize SUV / Crossover">SUV / Crossover</button>
+        <button class="pricing-select-btn" data-multiplier="1.45" data-label="Full-size SUV / Pickup">SUV / Truck</button>
+      </div>
+    </div>
+
+    <!-- Pricing Grid -->
+    <div class="pricing-grid">
+      <!-- Standard Package -->
+      <div class="pricing-card reveal">
+        <h3 class="price-package-name">Carbon Protection</h3>
+        <div class="price-value-wrap">
+          <span class="price-currency">$</span>
+          <span class="price-value" id="priceStandard">199</span>
+          <span class="price-period">/ package</span>
+        </div>
+        <p class="price-desc">Quality carbon-infused film for reliable styling, color stability, and standard thermal blockage.</p>
+        <div class="price-checklist">
+          <div class="price-check-item">
+            <span class="price-check-icon">✓</span> Blocks 99% Ultraviolet Rays
+          </div>
+          <div class="price-check-item">
+            <span class="price-check-icon">✓</span> Blocks up to 35% Solar Heat
+          </div>
+          <div class="price-check-item">
+            <span class="price-check-icon">✓</span> Non-Metallic (No Interference)
+          </div>
+          <div class="price-check-item disabled">
+            <span class="price-check-icon">✓</span> Nano-Ceramic Heat Filtering
+          </div>
+          <div class="price-check-item disabled">
+            <span class="price-check-icon">✓</span> Self-Healing Scratch Defense
+          </div>
+        </div>
+        <a href="booking.html" class="btn btn-outline" style="width:100%;justify-content:center;">Choose Carbon</a>
+      </div>
+
+      <!-- Ceramic Package (Bestseller) -->
+      <div class="pricing-card featured reveal" data-delay="100">
+        <h3 class="price-package-name">Ceramic Elite Shield</h3>
+        <div class="price-value-wrap">
+          <span class="price-currency">$</span>
+          <span class="price-value" id="priceCeramic">349</span>
+          <span class="price-period">/ package</span>
+        </div>
+        <p class="price-desc">High-performance ceramic tinting delivering outstanding thermal heat defense and signal clarity.</p>
+        <div class="price-checklist">
+          <div class="price-check-item">
+            <span class="price-check-icon">✓</span> Blocks 99% Ultraviolet Rays
+          </div>
+          <div class="price-check-item">
+            <span class="price-check-icon">✓</span> Blocks up to 60% Solar Heat
+          </div>
+          <div class="price-check-item">
+            <span class="price-check-icon">✓</span> Nano-Ceramic Heat Filtering
+          </div>
+          <div class="price-check-item">
+            <span class="price-check-icon">✓</span> Non-Metallic (No Interference)
+          </div>
+          <div class="price-check-item disabled">
+            <span class="price-check-icon">✓</span> Self-Healing Scratch Defense
+          </div>
+        </div>
+        <a href="booking.html" class="btn btn-primary" style="width:100%;justify-content:center;">Choose Ceramic Elite</a>
+      </div>
+
+      <!-- Advanced PPF Package -->
+      <div class="pricing-card reveal" data-delay="200">
+        <h3 class="price-package-name">PPF Front Shield</h3>
+        <div class="price-value-wrap">
+          <span class="price-currency">$</span>
+          <span class="price-value" id="pricePPF">899</span>
+          <span class="price-period">/ package</span>
+        </div>
+        <p class="price-desc">Tough paint defense film applied on the hood, front bumper, headlights, and mirrors.</p>
+        <div class="price-checklist">
+          <div class="price-check-item">
+            <span class="price-check-icon">✓</span> Complete Front Panel Shielding
+          </div>
+          <div class="price-check-item">
+            <span class="price-check-icon">✓</span> Self-Healing Scratch Film
+          </div>
+          <div class="price-check-item">
+            <span class="price-check-icon">✓</span> Resists Road Salts & Chips
+          </div>
+          <div class="price-check-item">
+            <span class="price-check-icon">✓</span> 10-Year Clear Finish Warranty
+          </div>
+          <div class="price-check-item">
+            <span class="price-check-icon">✓</span> High-Gloss Hydrophobic Finish
+          </div>
+        </div>
+        <a href="booking.html" class="btn btn-outline" style="width:100%;justify-content:center;">Choose Front PPF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MATRIX COMPARISON ══ -->
+<section class="matrix-section">
+  <div class="container">
+    <div class="section-header centered reveal">
+      <div class="section-label">Detailed Comparison</div>
+      <h2 class="section-title">Film <span>Specification</span> Comparison</h2>
+      <p class="section-subtitle">Review the distinct performance stats of each product to choose the perfect protection fit.</p>
+    </div>
+
+    <div class="matrix-table-wrap reveal">
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th>Performance Matrix</th>
+            <th>Carbon Basic</th>
+            <th>Ceramic Elite</th>
+            <th>Nano Ceramic Max</th>
+            <th>PPF Armor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>UV Ray Deflection</td>
+            <td class="matrix-check">99%</td>
+            <td class="matrix-check">99%</td>
+            <td class="matrix-check">99%</td>
+            <td class="matrix-check">99%</td>
+          </tr>
+          <tr>
+            <td>Total Heat Rejection (TSER)</td>
+            <td>35%</td>
+            <td class="matrix-check">60%</td>
+            <td class="matrix-check">68%</td>
+            <td>N/A</td>
+          </tr>
+          <tr>
+            <td>Glaring Sunlight Reduction</td>
+            <td>70%</td>
+            <td class="matrix-check">88%</td>
+            <td class="matrix-check">94%</td>
+            <td>N/A</td>
+          </tr>
+          <tr>
+            <td>Wireless Signal Interruption</td>
+            <td>None</td>
+            <td>None</td>
+            <td>None</td>
+            <td>None</td>
+          </tr>
+          <tr>
+            <td>Impact Scratch Shielding</td>
+            <td>Standard</td>
+            <td>Standard</td>
+            <td>Advanced</td>
+            <td class="matrix-check">Maximum Shield</td>
+          </tr>
+          <tr>
+            <td>Self-Healing Polyurethane</td>
+            <td>No</td>
+            <td>No</td>
+            <td>No</td>
+            <td class="matrix-check">Yes</td>
+          </tr>
+          <tr>
+            <td>Warranty Coverage</td>
+            <td>Lifetime</td>
+            <td>Lifetime</td>
+            <td>Lifetime</td>
+            <td>10 Years</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Footer Placeholder -->
+<div id="footer-placeholder"></div>
+
+<script src="js/components.js"></script>
+<script src="js/main.js"></script>
+<script>
+  // Price Multiplier Logic
+  const priceStandardBase = 199;
+  const priceCeramicBase = 349;
+  const pricePPFBase = 899;
+
+  const standardEl = document.getElementById('priceStandard');
+  const ceramicEl = document.getElementById('priceCeramic');
+  const ppfEl = document.getElementById('pricePPF');
+  const labelEl = document.getElementById('vehicleLabel');
+
+  const btns = document.querySelectorAll('.pricing-select-btn');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const multiplier = parseFloat(btn.dataset.multiplier);
+      const label = btn.dataset.label;
+
+      labelEl.textContent = label;
+
+      if (standardEl) standardEl.textContent = Math.round(priceStandardBase * multiplier);
+      if (ceramicEl) ceramicEl.textContent = Math.round(priceCeramicBase * multiplier);
+      if (ppfEl) ppfEl.textContent = Math.round(pricePPFBase * multiplier);
+    });
+  });
+</script>
+</body>
+</html>
